@@ -74,22 +74,22 @@ export default function Payments() {
             <input
               type="text"
               placeholder="Customer Name"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Payment Method"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Penalty"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Penalty Amount"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <button
               type="button"

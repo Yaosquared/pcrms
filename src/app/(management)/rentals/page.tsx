@@ -74,27 +74,27 @@ export default function Rentals() {
             <input
               type="text"
               placeholder="Carrier Name"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Customer Name"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Pet Name"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Pet Type"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Pet Breed"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <button
               type="button"

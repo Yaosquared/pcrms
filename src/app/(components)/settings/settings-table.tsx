@@ -158,19 +158,19 @@ export default function SettingsTable() {
             <input
               type="text"
               placeholder="Code"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Description"
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <input
               type="text"
               placeholder="Value"
               value={bgMode}
               onChange={(e) => setBgMode(e.target.value)}
-              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground focus:outline-blue-600"
+              className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
             />
             <div>
               <button
