@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { messageClick } from "@/app/ui/message";
+
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 export default function LogIn() {
@@ -46,8 +48,15 @@ export default function LogIn() {
           Log In
         </Link>
         <div className="w-[70%] flex flex-row justify-between text-xs 2xl:text-sm font-medium cursor-pointer">
-          <p className="hover:text-blue-700">Forgot Password?</p>
-          <p className="hover:text-blue-700 hover:underline">Sign up</p>
+          <p onClick={messageClick} className="hover:text-blue-700">
+            Forgot Password?
+          </p>
+          <p
+            onClick={messageClick}
+            className="hover:text-blue-700 hover:underline"
+          >
+            Sign up
+          </p>
         </div>
       </form>
     </div>

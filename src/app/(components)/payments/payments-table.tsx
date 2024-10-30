@@ -1,3 +1,5 @@
+import { messageClick } from "@/app/ui/message";
+
 import { MdDelete } from "react-icons/md";
 
 interface PaymentsDataProps {
@@ -60,6 +62,7 @@ export default function PaymentsTable() {
                   <div className="flex flex-row items-center space-x-2 lg:space-x-3">
                     <MdDelete
                       size={24}
+                      onClick={messageClick}
                       className="text-red-600 hover:text-red-700 hover:scale-105 lg:w-6 lg:h-6 2xl:w-7 2xl:h-7"
                     />
                   </div>

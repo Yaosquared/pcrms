@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTheme } from "next-themes";
 
+import { messageClick } from "@/app/ui/message";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { BsFillMegaphoneFill } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
@@ -112,11 +113,12 @@ export default function SettingsTable() {
                   <div className="flex flex-row items-center space-x-2 lg:space-x-3">
                     <FaEdit
                       size={24}
-                      className="text-blue-600 hover:text-blue-700 hover:scale-105 lg:w-6 lg:h-6 2xl:w-7 2xl:h-7 cursor-pointer"
                       onClick={toggleDrawer("right", true)}
+                      className="text-blue-600 hover:text-blue-700 hover:scale-105 lg:w-6 lg:h-6 2xl:w-7 2xl:h-7 cursor-pointer"
                     />
                     <MdDelete
                       size={24}
+                      onClick={messageClick}
                       className="text-red-600 hover:text-red-700 hover:scale-105 lg:w-6 lg:h-6 2xl:w-7 2xl:h-7"
                     />
                   </div>

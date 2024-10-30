@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
+import { messageClick } from "@/app/ui/message";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
 interface CustomerDataProps {
@@ -134,6 +135,7 @@ export default function CustomersTable() {
                     />
                     <MdDelete
                       size={20}
+                      onClick={messageClick}
                       className="text-red-600 hover:text-red-700 hover:scale-105 lg:w-6 lg:h-6 2xl:w-7 2xl:h-7"
                     />
                   </div>
