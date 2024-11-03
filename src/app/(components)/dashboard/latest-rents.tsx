@@ -7,8 +7,13 @@ interface RentDataProps {
 }
 
 // Placeholder data for rent
-const rentsData: RentDataProps[] = [{ id: 1, person: "Mario", amount: "₱350" }];
-
+const rentsData: RentDataProps[] = [
+  { id: 1, person: "Mario", amount: "₱350" },
+  { id: 2, person: "Jenson", amount: "Pending" },
+  { id: 3, person: "Al", amount: "Pending" },
+  { id: 4, person: "Christian", amount: "Pending" },
+  { id: 5, person: "John Loyd", amount: "Pending" },
+];
 export default function LatestRents() {
   return (
     <div className="lg:h-[34rem] border rounded-md p-4 shadow-md">
@@ -25,7 +30,7 @@ export default function LatestRents() {
             >
               <BsPersonFill size={40} />
               <div className="flex flex-col text-sm lg:text-base">
-                <p>{rent.person}</p>
+                <p className="font-medium">{rent.person}</p>
                 <p>{rent.amount}</p>
               </div>
             </li>
@@ -35,5 +40,3 @@ export default function LatestRents() {
     </div>
   );
 }
-
-// ToDo: modify list to be scrollable in place

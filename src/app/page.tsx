@@ -4,7 +4,7 @@ export default function LandPage() {
   return (
     <main className="min-h-screen flex flex-col justify-center items-center space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-7">
       <div className="flex flex-col justify-center items-center text-center space-y-1 md:space-y-2 lg:space-y-3 xl:space-y-4">
-        <h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+        <h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl xl:text-5xl bg-gradient-to-r from-[#0cadc4] to-[#1a3b69] bg-clip-text text-transparent">
           PCRMS
         </h2>
         <p className="font-medium text-lg md:text-xl lg:text-2xl xl:text-3xl">

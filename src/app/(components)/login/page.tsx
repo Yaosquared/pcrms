@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { messageClick } from "@/app/ui/message";
+import logo from "@/public/logo.png";
 
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
@@ -15,9 +17,18 @@ export default function LogIn() {
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center text-center text-xl space-y-">
       <form className="border rounded-md shadow-md w-[80%] md:w-[50%] lg:w-[40%] 2xl:w-[30%] h-[40%] md:h-[50%] 2xl:h-[60%] flex flex-col justify-center items-center space-y-4 bg-accent/60 backdrop-blur-lg dark:bg-accent/10 text-foreground text-xs lg:text-sm 2xl:text-base">
-        <h2 className="font-bold text-xl md:text-2xl lg:text-3xl 2xl:text-4xl lg:mb-2 xl:mb-4 2xl:mb-6 bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
-          PCRMS
-        </h2>
+        <div className="flex flex-row items-center space-x-2 lg:space-x-3">
+          <Image
+            src={logo}
+            alt="PCRMS Logo"
+            width={50}
+            height={50}
+            className="md:w-14 md:h-12 lg:w-20 lg:h-16 xl:h-18 2xl:w-24 2xl:h-20"
+          />
+          <h2 className="font-bold text-xl md:text-2xl lg:text-3xl 2xl:text-4xl bg-gradient-to-r from-[#0cadc4] to-[#1a3b69] bg-clip-text text-transparent">
+            PCRMS
+          </h2>
+        </div>
         <input
           type="text"
           placeholder="Username"
