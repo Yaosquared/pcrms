@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model PetCarriers {
+  carrierId    String    @id @default(cuid())
+  carrierName  String
+  deviceStatus Boolean   @default(false)
+  rentalStatus Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+
+  @@map("pet_carriers")
+}
+
+model Monitoring {
+  monitoringId String    @id @default(cuid())
+  carrierName  String
+  rangeStatus  Boolean
+  latitude     String
+  longitude    String
+  timer        String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+
+  @@map("monitoring")
+}
+
+model Customers {
+  customerId   String    @id @default(cuid())
+  customerName String
+  email        String    @unique
+  phoneNumber  String    @unique
+  birthDate    DateTime
+  idType       String
+  idNumber     String    @unique
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+
+  @@map("customers")
+}
+
+model Complaints {
+  complaintId     String    @id @default(cuid())
+  customerName    String
+  description     String
+  complaintStatus Boolean   @default(false)
+  dateResolved    DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+
+  @@map("complaints")
+}
+
+model Rentals {
+  rentalId        String    @id @default(cuid())
+  carrierName     String
+  customerName    String
+  petName         String
+  petType         String
+  petBreed        String
+  rentalStatus    Boolean   @default(false)
+  rentalStartTime DateTime  @default(now())
+  rentalEndTime   DateTime?
+  totalTime       Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+
+  payments Payments?
+
+  @@map("rentals")
+}
+
+model Payments {
+  paymentId     String    @id @default(cuid())
+  rentalId      String    @unique
+  customerName  String
+  paymentStatus Boolean?
+  paymentMethod String?
+  penalty       String?
+  penaltyAmount Int?
+  totalAmount   Int?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+
+  rentals Rentals? @relation(fields: [rentalId], references: [rentalId])
+
+  @@map("payments")
+}
+
+model Settings {
+  settingId   String    @id @default(cuid())
+  code        String
+  description String
+  value       Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  modifiedBy  String    @default("Admin")
+
+  @@map("settings")
+}
+
+model Users {
+  userId         String    @id @default(cuid())
+  username       String    @unique
+  hashedPassword String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime? @updatedAt
+
+  @@map("users")
+}

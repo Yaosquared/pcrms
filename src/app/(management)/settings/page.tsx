@@ -1,7 +1,7 @@
 import { Divider } from "@mui/joy";
 
-import SettingsTable from "@/app/(components)/settings/settings-table";
 import SearchBar from "@/app/ui/search-bar";
+import SettingsTable from "@/app/(components)/settings/table";
 
 export default function Settings() {
   return (

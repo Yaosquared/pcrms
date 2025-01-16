@@ -18,7 +18,7 @@ export default function SearchBar() {
           onClick={messageClick}
           className="bg-blue-600 hover:bg-blue-700 text-white rounded-r-md px-3 py-2"
         >
-          <FaMagnifyingGlass size={20} />
+          <FaMagnifyingGlass title="Search" size={20} />
         </button>
       </form>
     </div>
