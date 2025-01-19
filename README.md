@@ -24,7 +24,7 @@ npm install
 ### Set Environment Variables
 
 ```bash
-DATABASE_URL=<tour_database_url>
+DATABASE_URL=<your_database_url>
 DATABASE_URL_UNPOOLED=<your_database_url_unpooled>
 PGDATABASE=<your_pgdatabase>
 PGHOST=<your_pghost>
