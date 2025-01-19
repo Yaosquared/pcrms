@@ -4,12 +4,16 @@ const PaymentEditForm = ({
   id,
   customerName,
   paymentMethod,
+  penalty,
+  penaltyAmount,
   clientAction,
   handleClose,
 }: {
   id: string;
   customerName: string;
   paymentMethod: string | null;
+  penalty: string | null;
+  penaltyAmount: number | null;
   clientAction: (formData: FormData) => Promise<void>;
   handleClose: () => void;
 }) => {
@@ -43,12 +47,14 @@ const PaymentEditForm = ({
           type="text"
           name="payment-penalty"
           placeholder="Penalty"
+          defaultValue={penalty ?? ""}
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <input
           type="number"
           name="payment-penaltyAmount"
           placeholder="Penalty Amount"
+          defaultValue={penaltyAmount ?? ""}
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <SubmitButton handleClose={handleClose} />

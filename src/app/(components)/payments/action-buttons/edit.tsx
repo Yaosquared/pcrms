@@ -13,10 +13,14 @@ const EditButton = ({
   id,
   customerName,
   paymentMethod,
+  penalty,
+  penaltyAmount,
 }: {
   id: string;
   customerName: string;
   paymentMethod: string | null;
+  penalty: string | null;
+  penaltyAmount: number | null;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => setIsDrawerOpen(true);
@@ -59,6 +63,8 @@ const EditButton = ({
             id={id}
             customerName={customerName}
             paymentMethod={paymentMethod}
+            penalty={penalty}
+            penaltyAmount={penaltyAmount}
             clientAction={clientAction}
             handleClose={handleClose}
           />

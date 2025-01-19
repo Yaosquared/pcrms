@@ -6,13 +6,19 @@ import { revalidatePath } from "next/cache";
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
 
+  // const
+
   if (error instanceof Error) {
     message = error.message;
   } else if (error && typeof error === "object" && "message" in error) {
     message = String(error.message);
   } else if (typeof error === "string") {
     message = error;
-  } else {
+  }
+  //  else if () {
+  //   message = "Delete corresponding payment record first"
+  // }
+  else {
     message = "Something went wrong";
   }
 
@@ -87,6 +93,13 @@ export const deleteRecord = async (formData: FormData) => {
   const id = formData.get("rental-id") as string;
 
   try {
+    const paymentCount = await prisma.payments.count({
+      where: { rentalId: id },
+    });
+    if (paymentCount > 0) {
+      return { error: "Delete linked payment record first" };
+    }
+
     await prisma.rentals.delete({
       where: { rentalId: id },
     });
