@@ -4,8 +4,10 @@ import { useState } from "react";
 
 import { FaEdit } from "react-icons/fa";
 import { Drawer, Box } from "@mui/material";
+import { toast } from "react-hot-toast";
 
 import CustomerEditForm from "../edit-form";
+import { editRecord } from "../actions";
 
 const EditButton = ({
   id,
@@ -27,6 +29,15 @@ const EditButton = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => setIsDrawerOpen(true);
   const handleClose = () => setIsDrawerOpen(false);
+
+  const clientAction = async (formData: FormData) => {
+    const result = await editRecord(formData);
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Customer record edited");
+    }
+  };
 
   return (
     <>
@@ -60,6 +71,7 @@ const EditButton = ({
             birthDate={birthDate}
             idType={idType}
             idNumber={idNumber}
+            clientAction={clientAction}
             handleClose={handleClose}
           />
         </Box>

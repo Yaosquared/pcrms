@@ -1,12 +1,23 @@
+"use client";
+
 import { FaCheck } from "react-icons/fa6";
+import { toast } from "react-hot-toast";
 
 import { markAsReturned } from "../actions";
 
 const ReturnedButton = ({ id }: { id: string }) => {
   const submitId = markAsReturned.bind(null, id);
+  const clientAction = async (formData: FormData) => {
+    const result = await submitId();
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Rental record marked as returned");
+    }
+  };
 
   return (
-    <form action={submitId}>
+    <form action={clientAction}>
       <button type="submit">
         <FaCheck
           title="Mark as returned"

@@ -4,13 +4,24 @@ import { useState } from "react";
 
 import { FiPlus } from "react-icons/fi";
 import { Drawer, Box } from "@mui/material";
+import { toast } from "react-hot-toast";
 
 import ComplaintNewForm from "../new-form";
+import { createRecord } from "../actions";
 
 const NewButton = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => setIsDrawerOpen(true);
   const handleClose = () => setIsDrawerOpen(false);
+
+  const clientAction = async (formData: FormData) => {
+    const result = await createRecord(formData);
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Complaint record added");
+    }
+  };
 
   return (
     <>
@@ -39,7 +50,10 @@ const NewButton = () => {
             },
           }}
         >
-          <ComplaintNewForm handleClose={handleClose} />
+          <ComplaintNewForm
+            clientAction={clientAction}
+            handleClose={handleClose}
+          />
         </Box>
       </Drawer>
     </>

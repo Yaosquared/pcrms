@@ -4,19 +4,32 @@ import { useState } from "react";
 
 import { FaEdit } from "react-icons/fa";
 import { Drawer, Box } from "@mui/material";
+import { toast } from "react-hot-toast";
 
 import PaymentEditForm from "../edit-form";
+import { editRecord } from "../actions";
 
 const EditButton = ({
   id,
   customerName,
+  paymentMethod,
 }: {
   id: string;
   customerName: string;
+  paymentMethod: string | null;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => setIsDrawerOpen(true);
   const handleClose = () => setIsDrawerOpen(false);
+
+  const clientAction = async (formData: FormData) => {
+    const result = await editRecord(formData);
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Payment record edited");
+    }
+  };
 
   return (
     <>
@@ -45,6 +58,8 @@ const EditButton = ({
           <PaymentEditForm
             id={id}
             customerName={customerName}
+            paymentMethod={paymentMethod}
+            clientAction={clientAction}
             handleClose={handleClose}
           />
         </Box>

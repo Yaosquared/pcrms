@@ -1,19 +1,19 @@
 import { FaTrash } from "react-icons/fa";
 
-import { deleteRecord } from "./actions";
-
 const CustomerDeleteForm = ({
   id,
   name,
+  clientAction,
   handleClose,
 }: {
   id: string;
   name: string;
+  clientAction: (formData: FormData) => Promise<void>;
   handleClose: () => void;
 }) => {
   return (
     <form
-      action={deleteRecord}
+      action={clientAction}
       className="flex flex-col space-y-4 text-foreground text-sm lg:text-base text-center items-center"
     >
       <FaTrash size={100} className="text-red-600 m-3" />

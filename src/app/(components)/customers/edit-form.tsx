@@ -1,4 +1,4 @@
-import { editRecord } from "./actions";
+import SubmitButton from "./action-buttons/submit";
 
 const CustomerEditForm = ({
   id,
@@ -8,6 +8,7 @@ const CustomerEditForm = ({
   birthDate,
   idType,
   idNumber,
+  clientAction,
   handleClose,
 }: {
   id: string;
@@ -17,12 +18,13 @@ const CustomerEditForm = ({
   birthDate: Date;
   idType: string;
   idNumber: string;
+  clientAction: (formData: FormData) => Promise<void>;
   handleClose: () => void;
 }) => {
   return (
     <>
       <form
-        action={editRecord}
+        action={clientAction}
         className="flex flex-col space-y-4 text-foreground text-sm lg:text-base"
       >
         <h3 className="text-base lg:text-lg 2xl:text-xl font-semibold">
@@ -34,6 +36,7 @@ const CustomerEditForm = ({
           name="customer-name"
           defaultValue={name}
           placeholder="Customer Name"
+          required
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <input
@@ -41,6 +44,7 @@ const CustomerEditForm = ({
           name="customer-email"
           defaultValue={email}
           placeholder="Email"
+          required
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <input
@@ -48,6 +52,7 @@ const CustomerEditForm = ({
           name="customer-phoneNumber"
           defaultValue={phoneNumber}
           placeholder="Phone Number (+63)"
+          required
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <input
@@ -55,6 +60,7 @@ const CustomerEditForm = ({
           name="customer-birthDate"
           defaultValue={birthDate.toISOString().split("T")[0]}
           placeholder="Birthdate"
+          required
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <input
@@ -62,6 +68,7 @@ const CustomerEditForm = ({
           name="customer-idType"
           defaultValue={idType}
           placeholder="ID Type"
+          required
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <input
@@ -69,15 +76,10 @@ const CustomerEditForm = ({
           name="customer-idNumber"
           defaultValue={idNumber}
           placeholder="ID Number"
+          required
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
-        <button
-          type="submit"
-          onClick={handleClose}
-          className="w-[100%] sm:w-[50%] md:w-[33.33%] lg:w-[25%] xl:w-[20%] bg-blue-600 hover:bg-blue-700 text-white rounded-md h-10 sm:h-9 lg:h-11 text-xs lg:text-sm"
-        >
-          Save
-        </button>
+        <SubmitButton handleClose={handleClose} />
       </form>
     </>
   );

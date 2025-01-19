@@ -119,6 +119,7 @@ const PaymentsTable = async () => {
                   <EditButton
                     id={payment.paymentId}
                     customerName={payment.customerName}
+                    paymentMethod={payment.paymentMethod}
                   />
                   <DeleteButton
                     id={payment.paymentId}

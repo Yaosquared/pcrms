@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { inter } from "@/app/ui/fonts";
 import "@/app/ui/globals.css";
 import { ThemeProvider } from "./ui/theme-provider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "PCRMS",
@@ -22,6 +23,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-right" />
         </ThemeProvider>
       </body>
     </html>

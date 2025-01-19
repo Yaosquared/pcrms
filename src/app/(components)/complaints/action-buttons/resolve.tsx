@@ -1,12 +1,23 @@
+"use client";
+
 import { FaCheck } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 import { markAsResolved } from "../actions";
 
 const ResolveButton = ({ id }: { id: string }) => {
   const submitId = markAsResolved.bind(null, id);
+  const clientAction = async (formData: FormData) => {
+    const result = await submitId();
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Complaint record marked as resolved");
+    }
+  };
 
   return (
-    <form action={submitId}>
+    <form action={clientAction}>
       <button type="submit">
         <FaCheck
           title="Mark as resolved"

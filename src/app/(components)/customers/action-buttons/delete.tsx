@@ -4,13 +4,24 @@ import { useState } from "react";
 
 import { MdDelete } from "react-icons/md";
 import { Modal, Box } from "@mui/material";
+import { toast } from "react-hot-toast";
 
 import CustomerDeleteForm from "../delete-form";
+import { deleteRecord } from "../actions";
 
 const DeleteButton = ({ id, name }: { id: string; name: string }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
+
+  const clientAction = async (formData: FormData) => {
+    const result = await deleteRecord(formData);
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Customer record deleted");
+    }
+  };
 
   const style = {
     position: "absolute",
@@ -40,7 +51,12 @@ const DeleteButton = ({ id, name }: { id: string; name: string }) => {
         aria-describedby="Delete pet carrier record?"
       >
         <Box p={4} sx={style}>
-          <CustomerDeleteForm id={id} name={name} handleClose={handleClose} />
+          <CustomerDeleteForm
+            id={id}
+            name={name}
+            clientAction={clientAction}
+            handleClose={handleClose}
+          />
         </Box>
       </Modal>
     </>

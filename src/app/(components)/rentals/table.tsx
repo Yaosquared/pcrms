@@ -16,6 +16,7 @@ const RentalsTable = async () => {
     }
   };
 
+  // handle > 24 hrs rental bug
   const getRentalStartTime = (rentalStartTime: Date) => {
     return format(new Date(rentalStartTime), "hh:mm:ss a");
   };

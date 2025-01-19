@@ -33,7 +33,6 @@ const SettingsTable = async () => {
           </tr>
         </thead>
         <tbody>
-          {/* Map through settingsData array and display placeholder data in table */}
           {settingsData.map((setting) => (
             <tr
               key={setting.settingId}
