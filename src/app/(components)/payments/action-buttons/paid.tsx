@@ -7,7 +7,7 @@ import { markAsPaid } from "../actions";
 
 const PaidButton = ({ id }: { id: string }) => {
   const submitId = markAsPaid.bind(null, id);
-  const clientAction = async (formData: FormData) => {
+  const clientAction = async () => {
     const result = await submitId();
     if (result?.error) {
       toast.error(result.error);

@@ -7,7 +7,7 @@ import { markAsReturned } from "../actions";
 
 const ReturnedButton = ({ id }: { id: string }) => {
   const submitId = markAsReturned.bind(null, id);
-  const clientAction = async (formData: FormData) => {
+  const clientAction = async () => {
     const result = await submitId();
     if (result?.error) {
       toast.error(result.error);

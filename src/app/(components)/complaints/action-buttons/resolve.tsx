@@ -7,7 +7,7 @@ import { markAsResolved } from "../actions";
 
 const ResolveButton = ({ id }: { id: string }) => {
   const submitId = markAsResolved.bind(null, id);
-  const clientAction = async (formData: FormData) => {
+  const clientAction = async () => {
     const result = await submitId();
     if (result?.error) {
       toast.error(result.error);
