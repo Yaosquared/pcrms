@@ -74,3 +74,13 @@ export const deleteRecord = async (formData: FormData) => {
 
   revalidatePath("/pet-carriers");
 };
+
+// export const getCarrier = async (formData: FormData) => {
+//   const carrier = formData.get("carrier-search") as string;
+
+//   await prisma.petCarriers.findUnique({
+//     where: {
+//       carrierId: carrier,
+//     },
+//   });
+// };

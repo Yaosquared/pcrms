@@ -6,7 +6,11 @@ import DeleteButton from "./action-buttons/delete";
 import EditButton from "./action-buttons/edit";
 
 const PaymentsTable = async () => {
-  const paymentsData = await prisma.payments.findMany();
+  const paymentsData = await prisma.payments.findMany({
+    orderBy: {
+      customerName: "asc",
+    },
+  });
 
   const getPaymentStatus = (paymentStatus: boolean) => {
     if (paymentStatus === true) {
@@ -53,7 +57,16 @@ const PaymentsTable = async () => {
       },
     });
 
-    const rentalAmount = (totalTime?.totalTime ?? 0) * 30;
+    const rentalPrice = await prisma.settings.findUnique({
+      where: {
+        code: "RENTAL_PRICE",
+      },
+      select: {
+        value: true,
+      },
+    });
+    const rentalAmount =
+      (totalTime?.totalTime ?? 0) * (rentalPrice?.value ?? 0);
     const totalAmount = rentalAmount + (penaltyAmount ?? 0);
 
     if (totalAmount !== null) {

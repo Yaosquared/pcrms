@@ -1,8 +1,8 @@
-
 import { Divider } from "@mui/joy";
 
 import MonitorCards from "@/app/(components)/pet-carriers/monitor-cards";
 import SearchBar from "@/app/ui/search-bar";
+// import PetCarrierSearch from "@/app/(components)/pet-carriers/search-form";
 import PetCarriersTable from "@/app/(components)/pet-carriers/table";
 import PetCarriersHeader from "@/app/(components)/pet-carriers/header";
 
@@ -15,6 +15,9 @@ export default function PetCarriers() {
       </div>
       <MonitorCards />
       <SearchBar />
+      {/* <div className="py-4">
+        <PetCarrierSearch />
+      </div> */}
       <PetCarriersTable />
     </article>
   );

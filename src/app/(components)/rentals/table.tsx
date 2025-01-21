@@ -6,7 +6,11 @@ import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
 
 const RentalsTable = async () => {
-  const rentalsData = await prisma.rentals.findMany();
+  const rentalsData = await prisma.rentals.findMany({
+    orderBy: {
+      customerName: "asc",
+    },
+  });
 
   const getRentalStatus = (rentalStatus: boolean) => {
     if (rentalStatus === true) {

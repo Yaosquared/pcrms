@@ -6,7 +6,11 @@ import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
 
 const ComplaintsTable = async () => {
-  const complaintsData = await prisma.complaints.findMany();
+  const complaintsData = await prisma.complaints.findMany({
+    orderBy: {
+      customerName: "asc",
+    },
+  });
 
   const getComplaintStatus = (complaintStatus: boolean) => {
     if (complaintStatus === true) {

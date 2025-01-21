@@ -5,7 +5,11 @@ import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
 
 const CustomersTable = async () => {
-  const customersData = await prisma.customers.findMany();
+  const customersData = await prisma.customers.findMany({
+    orderBy: {
+      customerName: "asc",
+    },
+  });
 
   const getBirthDate = (birthDate: Date) => {
     return format(new Date(birthDate), "MMMM dd, yyyy");

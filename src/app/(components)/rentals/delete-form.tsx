@@ -25,7 +25,7 @@ const RentalDeleteForm = ({
       <div className="flex justify-between w-[100%]">
         <button
           onClick={handleClose}
-          className="w-[49%] bg-slate-200 hover:bg-slate-300 transition duration-200 ease-in-out text-black font-semibold rounded-md h-10 sm:h-9 lg:h-11 text-xs lg:text-sm flex items-center justify-center"
+          className="w-[49%] bg-slate-200 hover:bg-slate-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 transition duration-200 ease-in-out text-black dark:text-white font-semibold rounded-md h-10 sm:h-9 lg:h-11 text-xs lg:text-sm flex items-center justify-center"
         >
           Cancel
         </button>

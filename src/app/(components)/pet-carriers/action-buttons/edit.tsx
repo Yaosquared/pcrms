@@ -23,6 +23,16 @@ const EditButton = ({ id, name }: { id: string; name: string }) => {
     }
   };
 
+  const style = {
+    width: {
+      xs: 400,
+      sm: 600,
+      md: 600,
+      lg: 600,
+      xl: 700,
+    },
+  };
+
   return (
     <>
       <FaEdit
@@ -37,15 +47,8 @@ const EditButton = ({ id, name }: { id: string; name: string }) => {
           p={4}
           textAlign="center"
           role="presentation"
-          sx={{
-            width: {
-              xs: 400,
-              sm: 600,
-              md: 600,
-              lg: 600,
-              xl: 700,
-            },
-          }}
+          sx={style}
+          className="h-[100%] dark:bg-[#121212]"
         >
           <PetCarrierEditForm
             id={id}
