@@ -1,40 +1,100 @@
 import ProgressCard from "@/app/ui/dashboard/progress-card";
+import {
+  fetchPetCarrierMetrics,
+  fetchDailyRentedCarrier,
+  fetchDailyNewCustomerMetrics,
+} from "./actions";
 
-interface MetricDataProps {
-  id: number;
-  value: number;
-  colorValue: "primary" | "neutral" | "danger" | "success" | "warning";
-  label: string;
-}
+type PetCarrierProps = {
+  carrierId: string;
+  carrierName: string;
+  batteryPercentage: number;
+  deviceStatus: boolean;
+  rentalStatus: boolean;
+  createdAt: Date;
+  updatedAt: Date | null;
+};
 
-// Placeholder data for metrics
-const metricsData: MetricDataProps[] = [
-  { id: 1, value: 1, colorValue: "primary", label: "Available Pet Carrier/s" },
-  { id: 2, value: 4, colorValue: "danger", label: "On-Rent Pet Carrier/s" },
-  {
-    id: 3,
-    value: 5,
-    colorValue: "warning",
-    label: "Rented Pet Carrier/s Today",
-  },
-  { id: 4, value: 5, colorValue: "success", label: "New Customer/s Today" },
-];
+type CustomerProps = {
+  customerId: string;
+  customerName: string;
+  email: string;
+  phoneNumber: string;
+  birthDate: Date;
+  idType: string;
+  idNumber: string;
+  createdAt: Date;
+  updatedAt: Date | null;
+};
 
-export default function MetricCards() {
+const MetricCards = async () => {
+  const petCarriersData = await fetchPetCarrierMetrics();
+  const dailyPetCarriersData = await fetchDailyRentedCarrier();
+  const customersData = await fetchDailyNewCustomerMetrics();
+
+  const getAvailableCarrier = (petCarriersData: PetCarrierProps[]) => {
+    return petCarriersData.filter(
+      (petCarrier) => petCarrier.rentalStatus == false
+    ).length;
+  };
+
+  const getOnRentPetCarrier = (petCarriersData: PetCarrierProps[]) => {
+    return petCarriersData.filter(
+      (petCarrier) => petCarrier.rentalStatus == true
+    ).length;
+  };
+
+  const getTotalRentedCarrierToday = () => {
+    return dailyPetCarriersData.length;
+  };
+
+  const getTotalNewCustomerToday = (customersData: CustomerProps[]) => {
+    return customersData.length;
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-x-auto lg:flex lg:flex-row lg:space-x-4 lg:gap-0">
-      {/* Map through metricsData array and display placeholder data in table */}
-      {metricsData.map((metric: MetricDataProps) => (
-        <div
-          key={metric.id}
-          className="flex flex-col lg:flex-row border rounded-md shadow-md items-center py-4 space-y-2 lg:space-x-2 lg:px-2 lg:w-[25%] lg:justify-center 2xl:px-4 2xl:space-x-6"
-        >
-          <ProgressCard value={metric.value} colorValue={metric.colorValue} />
-          <p className="text-sm 2xl:text-lg font-semibold text-center">
-            {metric.label}
-          </p>
-        </div>
-      ))}
+      <div className="flex flex-col lg:flex-row border rounded-md shadow-md items-center py-4 space-y-2 lg:space-x-2 lg:px-2 lg:w-[25%] lg:justify-center 2xl:px-4 2xl:space-x-6">
+        <ProgressCard
+          value={getAvailableCarrier(petCarriersData)}
+          colorValue="primary"
+        />
+        <p className="text-sm 2xl:text-lg font-semibold text-center">
+          Available Pet Carrier/s
+        </p>
+      </div>
+
+      <div className="flex flex-col lg:flex-row border rounded-md shadow-md items-center py-4 space-y-2 lg:space-x-2 lg:px-2 lg:w-[25%] lg:justify-center 2xl:px-4 2xl:space-x-6">
+        <ProgressCard
+          value={getOnRentPetCarrier(petCarriersData)}
+          colorValue="danger"
+        />
+        <p className="text-sm 2xl:text-lg font-semibold text-center">
+          On-Rent Pet Carrier/s
+        </p>
+      </div>
+
+      <div className="flex flex-col lg:flex-row border rounded-md shadow-md items-center py-4 space-y-2 lg:space-x-2 lg:px-2 lg:w-[25%] lg:justify-center 2xl:px-4 2xl:space-x-6">
+        <ProgressCard
+          value={getTotalRentedCarrierToday()}
+          colorValue="warning"
+        />
+        <p className="text-sm 2xl:text-lg font-semibold text-center">
+          Rented Pet Carrier/s Today
+        </p>
+      </div>
+
+      <div className="flex flex-col lg:flex-row border rounded-md shadow-md items-center py-4 space-y-2 lg:space-x-2 lg:px-2 lg:w-[25%] lg:justify-center 2xl:px-4 2xl:space-x-6">
+        <ProgressCard
+          value={getTotalNewCustomerToday(customersData)}
+          colorValue="success"
+        />
+        <p className="text-sm 2xl:text-lg font-semibold text-center">
+          New Customer/s Today
+        </p>
+      </div>
     </div>
   );
-}
+};
+
+export default MetricCards;

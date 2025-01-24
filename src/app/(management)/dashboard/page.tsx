@@ -1,7 +1,7 @@
 import { Divider } from "@mui/joy";
 
 import MetricCards from "@/app/(components)/dashboard/metric-cards";
-import YearlyRevenue from "@/app/(components)/dashboard/yearly-revenue";
+import YearlyRevenue from "@/app/(components)/dashboard/monthly-revenue";
 import LatestRents from "@/app/(components)/dashboard/latest-rents";
 import Complaints from "@/app/(components)/dashboard/complaints";
 

@@ -1,12 +1,17 @@
 import { Divider } from "@mui/joy";
 
 import MonitorCards from "@/app/(components)/pet-carriers/monitor-cards";
-import SearchBar from "@/app/ui/search-bar";
-// import PetCarrierSearch from "@/app/(components)/pet-carriers/search-form";
-import PetCarriersTable from "@/app/(components)/pet-carriers/table";
 import PetCarriersHeader from "@/app/(components)/pet-carriers/header";
+import PetCarrierSearch from "@/app/(components)/pet-carriers/search-bar";
+import PetCarriersTable from "@/app/(components)/pet-carriers/table";
 
-export default function PetCarriers() {
+export default function PetCarriers({
+  searchParams,
+}: {
+  searchParams?: { search?: string };
+}) {
+  const search = searchParams?.search || "";
+
   return (
     <article className="w-[100%]">
       <PetCarriersHeader />
@@ -14,11 +19,10 @@ export default function PetCarriers() {
         <Divider orientation="horizontal" />
       </div>
       <MonitorCards />
-      <SearchBar />
-      {/* <div className="py-4">
+      <div className="py-4">
         <PetCarrierSearch />
-      </div> */}
-      <PetCarriersTable />
+      </div>
+      <PetCarriersTable search={search} />
     </article>
   );
 }

@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import IconButton from "@mui/material/IconButton";
+import { Modal, Box } from "@mui/material";
 import { RxAvatar } from "react-icons/rx";
 import { SlMenu } from "react-icons/sl";
 import { RiDashboardFill } from "react-icons/ri";
@@ -13,6 +14,8 @@ import { IoBag } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
 import { FaClipboardList, FaCreditCard } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
+
+import LogoutForm from "./logout-form";
 
 interface NavLinkProps {
   href: string;
@@ -37,6 +40,9 @@ const navLinks: NavLinkProps[] = [
 export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpen = () => setIsModalOpen(true);
+  const handleClose = () => setIsModalOpen(false);
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -55,6 +61,20 @@ export default function Header() {
   };
 
   const isActive = (path: string) => pathname.startsWith(path);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 450,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 6,
+    borderRadius: 2,
+    border: "none",
+    outline: "none",
+  };
 
   return (
     <header className="w-[100%] flex justify-between px-5 text-white bg-blue-600">
@@ -129,9 +149,21 @@ export default function Header() {
         </SwipeableDrawer>
       </nav>
       <div className="flex items-center">
-        <Link href="/" className="cursor-pointer">
-          <RxAvatar size={40} className="2xl:w-10 2xl:h-10" />
-        </Link>
+        <RxAvatar
+          size={40}
+          onClick={handleOpen}
+          className="2xl:w-10 2xl:h-10 cursor-pointer"
+        />
+        <Modal
+          open={isModalOpen}
+          onClose={handleClose}
+          aria-labelledby="Delete button"
+          aria-describedby="Delete pet carrier record?"
+        >
+          <Box sx={style} className="dark:bg-[#121212]">
+            <LogoutForm handleClose={handleClose} />
+          </Box>
+        </Modal>
       </div>
     </header>
   );

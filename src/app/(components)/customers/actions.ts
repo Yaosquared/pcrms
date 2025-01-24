@@ -19,6 +19,22 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
+export const fetchRecords = async (search: string) => {
+  const customersData = await prisma.customers.findMany({
+    where: {
+      customerName: {
+        contains: search,
+        mode: "insensitive",
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  return customersData;
+};
+
 export const createRecord = async (formData: FormData) => {
   const newName = formData.get("customer-name") as string;
   const newEmail = formData.get("email") as string;
@@ -36,6 +52,7 @@ export const createRecord = async (formData: FormData) => {
         birthDate: newBirthDate,
         idType: newIdType,
         idNumber: newIdNumber,
+        updatedAt: null,
       },
     });
   } catch (error) {

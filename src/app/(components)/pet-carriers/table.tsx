@@ -1,16 +1,12 @@
-import prisma from "@/lib/prisma";
 import { format } from "date-fns";
 
 import CopyButton from "./action-buttons/copy";
 import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
+import { fetchRecords } from "./actions";
 
-const PetCarriersTable = async () => {
-  const petCarriersData = await prisma.petCarriers.findMany({
-    orderBy: {
-      carrierName: "asc",
-    },
-  });
+const PetCarriersTable = async ({ search }: { search: string }) => {
+  const petCarriersData = await fetchRecords(search);
 
   const getDeviceStatus = (deviceStatus: boolean) => {
     if (deviceStatus === true) {

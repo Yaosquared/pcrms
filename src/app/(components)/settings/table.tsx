@@ -3,16 +3,13 @@ import { format } from "date-fns";
 
 import EditButton from "./action-buttons/edit";
 import Toggle from "./action-buttons/toggle";
+import { fetchRecords } from "./actions";
 
-const SettingsTable = async () => {
-  const settingsData = await prisma.settings.findMany({
-    orderBy: {
-      code: "asc",
-    },
-  });
+const SettingsTable = async ({ search }: { search: string }) => {
+  const settingsData = await fetchRecords(search);
+
   const bgModeValue = await prisma.settings.findUnique({
     where: {
-      settingId: "cm5z33obz0001c8f40lc9d7k2",
       code: "BG_MODE_TOGGLE",
     },
     select: {
@@ -22,13 +19,10 @@ const SettingsTable = async () => {
 
   const getValue = (value: number) => {
     if (value === 1) {
-      console.log("Dark Mode");
       return 1;
     } else if (value === 0) {
-      console.log("Light Mode");
       return 0;
     } else {
-      console.log(`Price: ${value}`);
       return value;
     }
   };
@@ -67,7 +61,6 @@ const SettingsTable = async () => {
             >
               <td className="px-1 py-2">{setting.code}</td>
               <td className="px-1">{setting.description}</td>
-              {/* <td className="px-1">{setting.value}</td> */}
               <td className="px-1">{getValue(setting.value)}</td>
               <td className="px-1">{getCreatedDate(setting.createdAt)}</td>
               <td className="px-1">{getUpdatedDate(setting.updatedAt)}</td>

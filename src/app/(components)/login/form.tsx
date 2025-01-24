@@ -22,9 +22,9 @@ const LogInForm = () => {
   return (
     <form
       //   action={LogIn}
-      className="border rounded-md shadow-md w-[80%] md:w-[50%] lg:w-[40%] 2xl:w-[30%] h-[40%] md:h-[50%] 2xl:h-[60%] flex flex-col justify-center items-center space-y-4 bg-accent/60 backdrop-blur-lg dark:bg-accent/10 text-foreground text-xs lg:text-sm 2xl:text-base"
+      className="border rounded-md shadow-md w-[80%] md:w-[50%] lg:w-[40%] 2xl:w-[30%] h-[40%] md:h-[50%] 2xl:h-[60%] flex flex-col justify-center items-center space-y-4 bg-accent/50 backdrop-blur-lg dark:bg-accent/10 text-foreground text-xs lg:text-sm 2xl:text-base"
     >
-      <h2 className="font-bold text-xl md:text-2xl lg:text-3xl 2xl:text-4xl bg-gradient-to-r from-[#0cadc4] to-[#1a3b69] bg-clip-text text-transparent">
+      <h2 className="font-bold text-xl md:text-2xl lg:text-3xl 2xl:text-4xl p-4">
         PCRMS
       </h2>
       <input
@@ -58,16 +58,16 @@ const LogInForm = () => {
       </Link>
 
       {/* <button type="submit">Log In</button> */}
-      <div className="w-[70%] flex flex-row justify-between text-xs 2xl:text-sm font-medium cursor-pointer">
+      <div className="w-[70%] flex flex-row justify-between text-xs2xl:text-sm font-medium cursor-pointer">
         <p
           //   onClick={messageClick}
-          className="hover:text-blue-700 hover:underline"
+          className="hover:text-blue-700 dark:hover:text-blue-300 hover:underline"
         >
           Forgot Password?
         </p>
         <p
           //   onClick={messageClick}
-          className="hover:text-blue-700 hover:underline"
+          className="hover:text-blue-700 dark:hover:text-blue-300 hover:underline"
         >
           Sign up
         </p>

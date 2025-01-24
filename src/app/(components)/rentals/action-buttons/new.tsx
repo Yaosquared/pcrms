@@ -9,7 +9,23 @@ import { toast } from "react-hot-toast";
 import RentalNewForm from "../new-form";
 import { createRecord } from "../actions";
 
-const NewButton = () => {
+type CarrierProps = {
+  carrierId: string;
+  carrierName: string;
+};
+
+type CustomerProps = {
+  customerId: string;
+  customerName: string;
+};
+
+const NewButton = ({
+  availableCarriers,
+  customerNames,
+}: {
+  availableCarriers: CarrierProps[];
+  customerNames: CustomerProps[];
+}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => setIsDrawerOpen(true);
   const handleClose = () => setIsDrawerOpen(false);
@@ -56,6 +72,8 @@ const NewButton = () => {
         >
           <RentalNewForm
             clientAction={clientAction}
+            availableCarriers={availableCarriers}
+            customerNames={customerNames}
             handleClose={handleClose}
           />
         </Box>

@@ -9,7 +9,12 @@ import { toast } from "react-hot-toast";
 import ComplaintNewForm from "../new-form";
 import { createRecord } from "../actions";
 
-const NewButton = () => {
+type CustomerProps = {
+  customerId: string;
+  customerName: string;
+};
+
+const NewButton = ({ customerNames }: { customerNames: CustomerProps[] }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => setIsDrawerOpen(true);
   const handleClose = () => setIsDrawerOpen(false);
@@ -55,6 +60,7 @@ const NewButton = () => {
         >
           <ComplaintNewForm
             clientAction={clientAction}
+            customerNames={customerNames}
             handleClose={handleClose}
           />
         </Box>

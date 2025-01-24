@@ -4,13 +4,10 @@ import { format } from "date-fns";
 import ReturnedButton from "./action-buttons/return";
 import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
+import { fetchRecords } from "./actions";
 
-const RentalsTable = async () => {
-  const rentalsData = await prisma.rentals.findMany({
-    orderBy: {
-      customerName: "asc",
-    },
-  });
+const RentalsTable = async ({ search }: { search: string }) => {
+  const rentalsData = await fetchRecords(search);
 
   const getRentalStatus = (rentalStatus: boolean) => {
     if (rentalStatus === true) {
@@ -131,7 +128,10 @@ const RentalsTable = async () => {
               <td className="px-1">{getUpdatedDate(rental.updatedAt)}</td>
               <td>
                 <div className="flex flex-row items-center space-x-2 lg:space-x-3">
-                  <ReturnedButton id={rental.rentalId} />
+                  <ReturnedButton
+                    rentalId={rental.rentalId}
+                    carrierId={rental.carrierId}
+                  />
                   <EditButton
                     id={rental.rentalId}
                     carrierName={rental.carrierName}
