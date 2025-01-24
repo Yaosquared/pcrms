@@ -1,18 +1,26 @@
 import { Divider } from "@mui/joy";
 
-import SearchBar from "@/app/ui/search-bar";
-import ComplaintsTable from "@/app/(components)/complaints/table";
 import ComplaintsHeader from "@/app/(components)/complaints/header";
+import ComplaintSearch from "@/app/(components)/complaints/search-bar";
+import ComplaintsTable from "@/app/(components)/complaints/table";
 
-export default function Complaints() {
+export default function Complaints({
+  searchParams,
+}: {
+  searchParams?: { search?: string };
+}) {
+  const search = searchParams?.search || "";
+
   return (
     <article className="w-[100%]">
       <ComplaintsHeader />
       <div className="pt-2">
         <Divider orientation="horizontal" />
       </div>
-      <SearchBar />
-      <ComplaintsTable />
+      <div className="py-4">
+        <ComplaintSearch />
+      </div>
+      <ComplaintsTable search={search} />
     </article>
   );
 }

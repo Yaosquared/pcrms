@@ -9,7 +9,23 @@ import { toast } from "react-hot-toast";
 import RentalNewForm from "../new-form";
 import { createRecord } from "../actions";
 
-const NewButton = () => {
+type CarrierProps = {
+  carrierId: string;
+  carrierName: string;
+};
+
+type CustomerProps = {
+  customerId: string;
+  customerName: string;
+};
+
+const NewButton = ({
+  availableCarriers,
+  customerNames,
+}: {
+  availableCarriers: CarrierProps[];
+  customerNames: CustomerProps[];
+}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => setIsDrawerOpen(true);
   const handleClose = () => setIsDrawerOpen(false);
@@ -22,6 +38,17 @@ const NewButton = () => {
       toast.success("Rental record added");
       toast.success("Payment record added");
     }
+  };
+
+  const style = {
+    width: {
+      xs: 400,
+      sm: 600,
+      md: 600,
+      lg: 600,
+      xl: 700,
+    },
+    p: 4,
   };
 
   return (
@@ -38,21 +65,15 @@ const NewButton = () => {
       <Drawer anchor="right" open={isDrawerOpen} onClose={handleClose}>
         <div className="bg-blue-600 w-[100%] h-[3.75rem] xl:h-16"></div>
         <Box
-          p={4}
           textAlign="center"
           role="presentation"
-          sx={{
-            width: {
-              xs: 400,
-              sm: 600,
-              md: 600,
-              lg: 600,
-              xl: 700,
-            },
-          }}
+          sx={style}
+          className="h-[100%] dark:bg-[#121212]"
         >
           <RentalNewForm
             clientAction={clientAction}
+            availableCarriers={availableCarriers}
+            customerNames={customerNames}
             handleClose={handleClose}
           />
         </Box>

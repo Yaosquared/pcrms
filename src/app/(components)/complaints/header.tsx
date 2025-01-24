@@ -3,15 +3,23 @@ import Link from "next/link";
 import { MdPeopleAlt } from "react-icons/md";
 
 import NewButton from "./action-buttons/new";
+import { fetchCustomers } from "./actions";
 
-const ComplaintsHeader = () => {
+type CustomerProps = {
+  customerId: string;
+  customerName: string;
+};
+
+const ComplaintsHeader = async() => {
+  const customerNames: CustomerProps[] = await fetchCustomers();
+
   return (
     <div className="flex flex-row justify-between items-center">
       <h2 className="text-base md:text-lg lg:text-xl 2xl:text-2xl font-semibold">
         Complaints
       </h2>
       <div className="flex flex-row text-xs lg:text-base font-medium space-x-2">
-        <NewButton />
+        <NewButton customerNames={customerNames} />
         <button className="flex flex-row items-center rounded-md p-2 lg:space-x-2 xl:px-4 xl:py-3 bg-green-600 hover:bg-green-700 text-white shadow-md">
           <Link href="/customers">
             <div className="flex flex-row items-center lg:space-x-2">

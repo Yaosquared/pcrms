@@ -9,12 +9,15 @@ datasource db {
 }
 
 model PetCarriers {
-  carrierId    String    @id @default(cuid())
-  carrierName  String
-  deviceStatus Boolean   @default(false)
-  rentalStatus Boolean   @default(false)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime? @updatedAt
+  carrierId         String    @id @default(cuid())
+  carrierName       String
+  batteryPercentage Int       @default(0)
+  deviceStatus      Boolean   @default(false)
+  rentalStatus      Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime? @updatedAt
+
+  rentals Rentals[]
 
   @@map("pet_carriers")
 }
@@ -60,6 +63,7 @@ model Complaints {
 
 model Rentals {
   rentalId        String    @id @default(cuid())
+  carrierId       String
   carrierName     String
   customerName    String
   petName         String
@@ -72,7 +76,8 @@ model Rentals {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime? @updatedAt
 
-  payments Payments?
+  payments    Payments?
+  petCarriers PetCarriers @relation(fields: [carrierId], references: [carrierId])
 
   @@map("rentals")
 }
@@ -96,7 +101,7 @@ model Payments {
 
 model Settings {
   settingId   String    @id @default(cuid())
-  code        String
+  code        String    @unique
   description String
   value       Int
   createdAt   DateTime  @default(now())

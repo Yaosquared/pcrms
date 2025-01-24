@@ -1,12 +1,12 @@
-import prisma from "@/lib/prisma";
 import { format } from "date-fns";
 
 import CopyButton from "./action-buttons/copy";
 import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
+import { fetchRecords } from "./actions";
 
-const PetCarriersTable = async () => {
-  const petCarriersData = await prisma.petCarriers.findMany();
+const PetCarriersTable = async ({ search }: { search: string }) => {
+  const petCarriersData = await fetchRecords(search);
 
   const getDeviceStatus = (deviceStatus: boolean) => {
     if (deviceStatus === true) {
@@ -67,7 +67,7 @@ const PetCarriersTable = async () => {
                 <td className="px-1">{getUpdatedDate(carrier.updatedAt)}</td>
                 <td>
                   <div className="flex flex-row items-center space-x-2 lg:space-x-3">
-                    <CopyButton />
+                    <CopyButton id={carrier.carrierId} />
                     <EditButton
                       id={carrier.carrierId}
                       name={carrier.carrierName}

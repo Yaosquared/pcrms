@@ -1,11 +1,11 @@
-import prisma from "@/lib/prisma";
 import { format } from "date-fns";
 
 import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
+import { fetchRecords } from "./actions";
 
-const CustomersTable = async () => {
-  const customersData = await prisma.customers.findMany();
+const CustomersTable = async ({ search }: { search: string }) => {
+  const customersData = await fetchRecords(search);
 
   const getBirthDate = (birthDate: Date) => {
     return format(new Date(birthDate), "MMMM dd, yyyy");

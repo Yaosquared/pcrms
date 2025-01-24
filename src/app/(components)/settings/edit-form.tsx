@@ -42,7 +42,7 @@ const SettingEditForm = ({
           className="h-10 w-[100%] px-3 py-2 border rounded-md placeholder:text-muted-foreground text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
         <input
-          type="text"
+          type="number"
           name="setting-value"
           defaultValue={value}
           placeholder="Value"

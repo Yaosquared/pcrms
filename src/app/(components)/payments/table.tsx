@@ -4,9 +4,10 @@ import { format } from "date-fns";
 import PaidButton from "./action-buttons/paid";
 import DeleteButton from "./action-buttons/delete";
 import EditButton from "./action-buttons/edit";
+import { fetchRecords } from "./actions";
 
-const PaymentsTable = async () => {
-  const paymentsData = await prisma.payments.findMany();
+const PaymentsTable = async ({ search }: { search: string }) => {
+  const paymentsData = await fetchRecords(search);
 
   const getPaymentStatus = (paymentStatus: boolean) => {
     if (paymentStatus === true) {
@@ -53,9 +54,30 @@ const PaymentsTable = async () => {
       },
     });
 
-    const rentalAmount = (totalTime?.totalTime ?? 0) * 30;
+    const rentalPrice = await prisma.settings.findUnique({
+      where: {
+        code: "RENTAL_PRICE",
+      },
+      select: {
+        value: true,
+      },
+    });
+    const rentalAmount =
+      (totalTime?.totalTime ?? 0) * (rentalPrice?.value ?? 0);
     const totalAmount = rentalAmount + (penaltyAmount ?? 0);
 
+    const updateTotalAmount = async () => {
+      await prisma.payments.update({
+        where: {
+          rentalId: rentalId,
+        },
+        data: {
+          totalAmount: totalAmount,
+        },
+      });
+    };
+
+    updateTotalAmount();
     if (totalAmount !== null) {
       return `₱ ${totalAmount}`;
     } else {

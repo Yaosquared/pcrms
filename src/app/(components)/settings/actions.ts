@@ -19,6 +19,22 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
+export const fetchRecords = async (search: string) => {
+  const settingsData = await prisma.settings.findMany({
+    where: {
+      code: {
+        contains: search,
+        mode: "insensitive",
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  return settingsData;
+};
+
 export const editRecord = async (formData: FormData) => {
   const id = formData.get("setting-id") as string;
   const newValue = Number(formData.get("setting-value"));

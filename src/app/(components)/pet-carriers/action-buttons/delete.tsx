@@ -31,9 +31,10 @@ const DeleteButton = ({ id, name }: { id: string; name: string }) => {
     width: 450,
     bgcolor: "background.paper",
     boxShadow: 24,
-    p: 4,
+    p: 6,
     borderRadius: 2,
     border: "none",
+    outline: "none",
   };
 
   return (
@@ -50,7 +51,7 @@ const DeleteButton = ({ id, name }: { id: string; name: string }) => {
         aria-labelledby="Delete button"
         aria-describedby="Delete pet carrier record?"
       >
-        <Box p={4} sx={style}>
+        <Box sx={style} className="dark:bg-[#121212]">
           <PetCarrierDeleteForm
             id={id}
             name={name}

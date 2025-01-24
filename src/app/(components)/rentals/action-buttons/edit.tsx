@@ -37,6 +37,17 @@ const EditButton = ({
     }
   };
 
+  const style = {
+    width: {
+      xs: 400,
+      sm: 600,
+      md: 600,
+      lg: 600,
+      xl: 700,
+    },
+    p: 4,
+  };
+
   return (
     <>
       <FaEdit
@@ -48,18 +59,10 @@ const EditButton = ({
       <Drawer anchor="right" open={isDrawerOpen} onClose={handleClose}>
         <div className="bg-blue-600 w-[100%] h-[3.75rem] xl:h-16"></div>
         <Box
-          p={4}
           textAlign="center"
           role="presentation"
-          sx={{
-            width: {
-              xs: 400,
-              sm: 600,
-              md: 600,
-              lg: 600,
-              xl: 700,
-            },
-          }}
+          sx={style}
+          className="h-[100%] dark:bg-[#121212]"
         >
           <RentalEditForm
             id={id}

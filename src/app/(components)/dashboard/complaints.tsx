@@ -1,46 +1,63 @@
-interface ComplaintDataProps {
-  id: number;
-  label: string;
-  count: number;
-  colorClass: string;
-}
+import { fetchComplaintsData } from "./actions";
 
-// Placeholder data for complaints
-const complaintsData: ComplaintDataProps[] = [
-  { id: 1, label: "Total Complaints", count: 1, colorClass: "text-blue-500" },
-  {
-    id: 2,
-    label: "Resolved Complaints",
-    count: 1,
-    colorClass: "text-green-500",
-  },
-  {
-    id: 3,
-    label: "Unresolved Complaints",
-    count: 0,
-    colorClass: "text-red-500",
-  },
-];
+type ComplaintProps = {
+  complaintId: string;
+  customerName: string;
+  description: string;
+  complaintStatus: boolean;
+  dateResolved: Date | null;
+  createdAt: Date;
+  updatedAt: Date | null;
+};
 
-export default function Complaints() {
+const Complaints = async () => {
+  const complaintsData = await fetchComplaintsData();
+
+  const getTotalComplaints = (complaintsData: ComplaintProps[]) => {
+    return complaintsData.length;
+  };
+
+  const getResolvedComplaints = (complaintsData: ComplaintProps[]) => {
+    return complaintsData.filter(
+      (complaint) => complaint.complaintStatus == true
+    ).length;
+  };
+
+  const getUnresolvedComplaints = (complaintsData: ComplaintProps[]) => {
+    return complaintsData.filter(
+      (complaint) => complaint.complaintStatus == false
+    ).length;
+  };
+
   return (
-    <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 text-base md:whitespace-nowrap">
-      {/* Map through complaintsData array and display placeholder data in table */}
-      {complaintsData.map((complaint: ComplaintDataProps) => (
-        <div
-          key={complaint.id}
-          className="border p-4 rounded-md shadow-md md:w-[33%]"
-        >
-          <p className="text-sm md:text-base lg:text-lg font-medium">
-            {complaint.label}
-          </p>
-          <p
-            className={`${complaint.colorClass} text-sm md:text-base lg:text-lg`}
-          >
-            {complaint.count}
-          </p>
-        </div>
-      ))}
+    <div className="flex flex-row gap-4">
+      <div className="border p-4 rounded-md shadow-md md:w-[33%]">
+        <p className="text-sm md:text-base lg:text-lg font-medium">
+          Total Complaints
+        </p>
+        <p className="text-blue-500 text-sm md:text-base lg:text-lg">
+          {getTotalComplaints(complaintsData)}
+        </p>
+      </div>
+      <div className="border p-4 rounded-md shadow-md md:w-[33%]">
+        <p className="text-sm md:text-base lg:text-lg font-medium">
+          Resolved Complaints
+        </p>
+        <p className="text-green-500 text-sm md:text-base lg:text-lg">
+          {getResolvedComplaints(complaintsData)}
+        </p>
+      </div>
+      <div className="border p-4 rounded-md shadow-md md:w-[33%]">
+        <p className="text-sm md:text-base lg:text-lg font-medium">
+          Unresolved Complaints
+        </p>
+        <p className="text-red-500 text-sm md:text-base lg:text-lg">
+          {getUnresolvedComplaints(complaintsData)}
+        </p>
+      </div>
     </div>
+    // </div>
   );
-}
+};
+
+export default Complaints;

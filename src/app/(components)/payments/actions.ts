@@ -19,6 +19,22 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
+export const fetchRecords = async (search: string) => {
+  const paymentsData = await prisma.payments.findMany({
+    where: {
+      customerName: {
+        contains: search,
+        mode: "insensitive",
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  return paymentsData;
+};
+
 export const editRecord = async (formData: FormData) => {
   const id = formData.get("payment-id") as string;
   const newName = formData.get("payment-customerName") as string;

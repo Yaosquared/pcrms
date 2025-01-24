@@ -5,10 +5,15 @@ import { toast } from "react-hot-toast";
 
 import { markAsReturned } from "../actions";
 
-const ReturnedButton = ({ id }: { id: string }) => {
-  const submitId = markAsReturned.bind(null, id);
+const ReturnedButton = ({
+  rentalId,
+  carrierId,
+}: {
+  rentalId: string;
+  carrierId: string;
+}) => {
   const clientAction = async () => {
-    const result = await submitId();
+    const result = await markAsReturned(rentalId, carrierId);
     if (result?.error) {
       toast.error(result.error);
     } else {

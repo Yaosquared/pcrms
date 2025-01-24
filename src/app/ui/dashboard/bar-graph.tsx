@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useMediaQuery } from "@mui/material";
-
 import { BarChart } from "@mui/x-charts/BarChart";
 
-export default function YearlyChart() {
+export default function YearChart({
+  monthlyRevenue,
+}: {
+  monthlyRevenue: { month: number; totalAmount: number }[];
+}) {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width: 426px)");
@@ -65,6 +68,15 @@ export default function YearlyChart() {
     },
   };
 
+  const chartData = Array(12)
+    .fill(0)
+    .map((_, monthIndex) => {
+      const monthData = monthlyRevenue.find(
+        (data) => data.month === monthIndex + 1
+      );
+      return monthData ? monthData.totalAmount : 0;
+    });
+
   return (
     <BarChart
       sx={{
@@ -91,10 +103,7 @@ export default function YearlyChart() {
       }}
       series={[
         {
-          data: [
-            3000, 3200, 4500, 5500, 7000, 8500, 9800, 9500, 6000, 5200, 4800,
-            4000,
-          ],
+          data: chartData,
           label: "Revenue",
           color: "rgb(59, 130, 246)",
         },

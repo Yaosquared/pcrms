@@ -1,12 +1,12 @@
-import prisma from "@/lib/prisma";
 import { format } from "date-fns";
 
 import ResolveButton from "./action-buttons/resolve";
 import EditButton from "./action-buttons/edit";
 import DeleteButton from "./action-buttons/delete";
+import { fetchRecords } from "./actions";
 
-const ComplaintsTable = async () => {
-  const complaintsData = await prisma.complaints.findMany();
+const ComplaintsTable = async ({ search }: { search: string }) => {
+  const complaintsData = await fetchRecords(search);
 
   const getComplaintStatus = (complaintStatus: boolean) => {
     if (complaintStatus === true) {
@@ -21,20 +21,7 @@ const ComplaintsTable = async () => {
     return format(new Date(createdAt), "MMMM dd, yyyy");
   };
 
-  const getDateResolved = (complaintId: string, dateResolved: Date | null) => {
-    const updateComplaintStatus = async () => {
-      await prisma.complaints.update({
-        where: {
-          complaintId: complaintId,
-        },
-        data: {
-          complaintStatus: true,
-        },
-      });
-    };
-
-    updateComplaintStatus();
-
+  const getDateResolved = (dateResolved: Date | null) => {
     if (dateResolved !== null) {
       return format(new Date(dateResolved), "MMMM dd, yyyy");
     } else {
@@ -77,10 +64,7 @@ const ComplaintsTable = async () => {
                   {getComplaintStatus(complaint.complaintStatus)}
                 </td>
                 <td className="px-1">
-                  {getDateResolved(
-                    complaint.complaintId,
-                    complaint.dateResolved
-                  )}
+                  {getDateResolved(complaint.dateResolved)}
                 </td>
                 <td className="px-1">{getCreatedDate(complaint.createdAt)}</td>
                 <td className="px-1">{getUpdatedDate(complaint.updatedAt)}</td>
