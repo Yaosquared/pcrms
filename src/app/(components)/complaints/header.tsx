@@ -3,20 +3,21 @@ import Link from "next/link";
 import { MdPeopleAlt } from "react-icons/md";
 
 import NewButton from "./action-buttons/new";
-import { fetchCustomers } from "./actions";
+import { fetchAllRecordsCount, fetchCustomers } from "./actions";
 
 type CustomerProps = {
   customerId: string;
   customerName: string;
 };
 
-const ComplaintsHeader = async() => {
+const ComplaintsHeader = async () => {
   const customerNames: CustomerProps[] = await fetchCustomers();
+  const complaintsDataLength = await fetchAllRecordsCount();
 
   return (
     <div className="flex flex-row justify-between items-center">
       <h2 className="text-base md:text-lg lg:text-xl 2xl:text-2xl font-semibold">
-        Complaints
+        Complaints ({complaintsDataLength})
       </h2>
       <div className="flex flex-row text-xs lg:text-base font-medium space-x-2">
         <NewButton customerNames={customerNames} />

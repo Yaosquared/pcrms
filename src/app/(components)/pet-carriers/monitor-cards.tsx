@@ -1,8 +1,14 @@
 import PercentageCard from "@/app/ui/pet-carriers/percentage-card";
 import { fetchRecords } from "./actions";
 
-const MonitorCards = async () => {
-  const monitorData = await fetchRecords();
+const MonitorCards = async ({
+  search,
+  page,
+}: {
+  search: string;
+  page: string;
+}) => {
+  const monitorData = await fetchRecords(search, page);
 
   const getColorValue = (batteryPercentage: number) => {
     if (batteryPercentage == 0) {

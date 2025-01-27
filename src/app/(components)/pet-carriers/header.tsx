@@ -1,13 +1,16 @@
 import Link from "next/link";
-
 import { FiMonitor } from "react-icons/fi";
-import NewButton from "./action-buttons/new";
 
-const PetCarriersHeader = () => {
+import NewButton from "./action-buttons/new";
+import { fetchAllRecordsCount } from "./actions";
+
+const PetCarriersHeader = async () => {
+  const petCarriersDataLength = await fetchAllRecordsCount();
+
   return (
     <div className="flex flex-row justify-between items-center">
       <h2 className="text-base md:text-lg lg:text-xl 2xl:text-2xl font-semibold">
-        Pet Carriers
+        Pet Carriers ({petCarriersDataLength})
       </h2>
       <div className="flex flex-row text-xs lg:text-base font-medium space-x-2">
         <NewButton />

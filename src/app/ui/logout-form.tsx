@@ -3,7 +3,7 @@ import Link from "next/link";
 const LogoutForm = ({ handleClose }: { handleClose: () => void }) => {
   return (
     <form className="flex flex-col space-y-4 text-foreground text-sm lg:text-base text-center items-center">
-      <h1 className="p-4 text-lg">
+      <h1 className="p-4 text-base lg:text-lg">
         Are you sure you want to log out your account
         <span className="font-semibold"> (Admin) </span>?
       </h1>

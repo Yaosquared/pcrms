@@ -16,6 +16,7 @@ import { FaClipboardList, FaCreditCard } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
 
 import LogoutForm from "./logout-form";
+import Footer from "./footer";
 
 interface NavLinkProps {
   href: string;
@@ -23,7 +24,6 @@ interface NavLinkProps {
   icon: JSX.Element;
 }
 
-// Placeholder for the nav component
 const navLinks: NavLinkProps[] = [
   {
     href: "/dashboard",
@@ -100,7 +100,7 @@ export default function Header() {
           onOpen={toggleDrawer(true)}
           PaperProps={{
             className:
-              "w-[50%] md:w-[25%] lg:w-[20%] 2xl:w-[16%] dark:bg-[#121212]",
+              "w-[50%] md:w-[25%] lg:w-[20%] 2xl:w-[16%] dark:bg-[#121212] justify-between",
           }}
         >
           <div>
@@ -122,7 +122,6 @@ export default function Header() {
             </div>
             <div className="flex flex-col p-4">
               <ul className="space-y-4">
-                {/* Map through navLinks array and display links in list */}
                 {navLinks.map((link: NavLinkProps) => (
                   <li key={link.href} className="group">
                     <Link
@@ -146,6 +145,7 @@ export default function Header() {
               </ul>
             </div>
           </div>
+          <Footer />
         </SwipeableDrawer>
       </nav>
       <div className="flex items-center">
@@ -160,7 +160,10 @@ export default function Header() {
           aria-labelledby="Delete button"
           aria-describedby="Delete pet carrier record?"
         >
-          <Box sx={style} className="dark:bg-[#121212]">
+          <Box
+            sx={style}
+            className="dark:bg-[#121212] w-[80%] md:w-[50%] lg:w-[40%] xl:w-[25%]"
+          >
             <LogoutForm handleClose={handleClose} />
           </Box>
         </Modal>

@@ -1,20 +1,16 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-
-import { Drawer, Box } from "@mui/material";
 import { FaFileCircleExclamation } from "react-icons/fa6";
 
 import NewButton from "./action-buttons/new";
+import { fetchAllRecordsCount } from "./actions";
 
-const CustomersHeader = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+const CustomersHeader = async () => {
+  const customersDataLength = await fetchAllRecordsCount();
 
   return (
     <div className="flex flex-row justify-between items-center">
       <h2 className="text-base md:text-lg lg:text-xl 2xl:text-2xl font-semibold">
-        Customers
+        Customers ({customersDataLength})
       </h2>
       <div className="flex flex-row text-xs lg:text-base font-medium space-x-2">
         <NewButton />
@@ -29,16 +25,6 @@ const CustomersHeader = () => {
           </Link>
         </button>
       </div>
-
-      <Drawer
-        anchor="right"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-      >
-        <Box p={2} width="250px" textAlign="center" role="presentation">
-          <h1>hello world</h1>
-        </Box>
-      </Drawer>
     </div>
   );
 };

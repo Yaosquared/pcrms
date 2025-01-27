@@ -7,9 +7,13 @@ import RentalsTable from "@/app/(components)/rentals/table";
 export default function Rentals({
   searchParams,
 }: {
-  searchParams?: { search?: string };
+  searchParams?: {
+    search?: string;
+    page?: string;
+  };
 }) {
   const search = searchParams?.search || "";
+  const page = searchParams?.page || "";
 
   return (
     <article className="w-[100%]">
@@ -20,7 +24,7 @@ export default function Rentals({
       <div className="py-4">
         <RentalSearch />
       </div>
-      <RentalsTable search={search} />
+      <RentalsTable search={search} page={page} />
     </article>
   );
 }

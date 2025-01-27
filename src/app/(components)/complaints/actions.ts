@@ -19,7 +19,11 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
-export const fetchRecords = async (search: string) => {
+export const fetchRecords = async (search?: string, page?: string) => {
+  const parsedPage = parseInt(page || "1");
+  const pageNumber = 15;
+  const skipValue = (parsedPage - 1) * pageNumber;
+
   const complaintsData = await prisma.complaints.findMany({
     where: {
       customerName: {
@@ -30,9 +34,15 @@ export const fetchRecords = async (search: string) => {
     orderBy: {
       createdAt: "asc",
     },
+    skip: skipValue,
+    take: pageNumber,
   });
 
   return complaintsData;
+};
+
+export const fetchAllRecordsCount = async (): Promise<number> => {
+  return await prisma.complaints.count();
 };
 
 export const createRecord = async (formData: FormData) => {

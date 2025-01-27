@@ -7,9 +7,13 @@ import CustomersTable from "@/app/(components)/customers/table";
 export default function Customers({
   searchParams,
 }: {
-  searchParams?: { search?: string };
+  searchParams?: {
+    search?: string;
+    page?: string;
+  };
 }) {
   const search = searchParams?.search || "";
+  const page = searchParams?.page || "";
 
   return (
     <article className="w-[100%]">
@@ -20,7 +24,7 @@ export default function Customers({
       <div className="py-4">
         <CustomerSearch />
       </div>
-      <CustomersTable search={search} />
+      <CustomersTable search={search} page={page} />
     </article>
   );
 }

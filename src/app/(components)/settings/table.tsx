@@ -3,10 +3,18 @@ import { format } from "date-fns";
 
 import EditButton from "./action-buttons/edit";
 import Toggle from "./action-buttons/toggle";
-import { fetchRecords } from "./actions";
+import { fetchAllRecordsCount, fetchRecords } from "./actions";
+import Pagination from "./action-buttons/pagination";
 
-const SettingsTable = async ({ search }: { search: string }) => {
-  const settingsData = await fetchRecords(search);
+const SettingsTable = async ({
+  search,
+  page,
+}: {
+  search: string;
+  page: string;
+}) => {
+  const settingsData = await fetchRecords(search, page);
+  const settingsDataLength = await fetchAllRecordsCount();
 
   const bgModeValue = await prisma.settings.findUnique({
     where: {
@@ -40,48 +48,53 @@ const SettingsTable = async ({ search }: { search: string }) => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-[100%] text-left">
-        <thead>
-          <tr className="border-b-2 space-x-4 whitespace-nowrap">
-            <th className="px-1 py-2">Code</th>
-            <th className="px-1">Description</th>
-            <th className="px-1">Value</th>
-            <th className="px-1">Date Created</th>
-            <th className="px-1">Date Updated</th>
-            <th className="px-1">Modified By</th>
-            <th className="px-1">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {settingsData.map((setting) => (
-            <tr
-              key={setting.settingId}
-              className="border-b text-gray-900 hover:bg-accent dark:text-gray-200 whitespace-nowrap"
-            >
-              <td className="px-1 py-2">{setting.code}</td>
-              <td className="px-1">{setting.description}</td>
-              <td className="px-1">{getValue(setting.value)}</td>
-              <td className="px-1">{getCreatedDate(setting.createdAt)}</td>
-              <td className="px-1">{getUpdatedDate(setting.updatedAt)}</td>
-              <td className="px-1">{setting.modifiedBy}</td>
-              <td>
-                <div className="flex flex-row items-center space-x-2 lg:space-x-3">
-                  <EditButton
-                    id={setting.settingId}
-                    code={setting.code}
-                    description={setting.description}
-                    value={setting.value}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <>
+      <div>
+        <div className="overflow-x-auto text-sm">
+          <table className="w-[100%] text-left">
+            <thead>
+              <tr className="border-b-2 space-x-4 whitespace-nowrap">
+                <th className="px-1 py-2">Code</th>
+                <th className="px-1">Description</th>
+                <th className="px-1">Value</th>
+                <th className="px-1">Date Created</th>
+                <th className="px-1">Date Updated</th>
+                <th className="px-1">Modified By</th>
+                <th className="px-1">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {settingsData.map((setting) => (
+                <tr
+                  key={setting.settingId}
+                  className="border-b text-gray-900 hover:bg-accent dark:text-gray-200 whitespace-nowrap"
+                >
+                  <td className="px-1 py-2">{setting.code}</td>
+                  <td className="px-1">{setting.description}</td>
+                  <td className="px-1">{getValue(setting.value)}</td>
+                  <td className="px-1">{getCreatedDate(setting.createdAt)}</td>
+                  <td className="px-1">{getUpdatedDate(setting.updatedAt)}</td>
+                  <td className="px-1">{setting.modifiedBy}</td>
+                  <td>
+                    <div className="flex flex-row items-center space-x-2 lg:space-x-3">
+                      <EditButton
+                        id={setting.settingId}
+                        code={setting.code}
+                        description={setting.description}
+                        value={setting.value}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <Pagination settingsDataLength={settingsDataLength} />
 
-      {bgModeValue && <Toggle bgModeValue={bgModeValue.value} />}
-    </div>
+        {bgModeValue && <Toggle bgModeValue={bgModeValue.value} />}
+      </div>
+    </>
   );
 };
 

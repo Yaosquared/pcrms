@@ -8,7 +8,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 export default function YearChart({
   monthlyRevenue,
 }: {
-  monthlyRevenue: { month: number; totalAmount: number }[];
+  monthlyRevenue: number[];
 }) {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(false);
@@ -68,37 +68,30 @@ export default function YearChart({
     },
   };
 
-  const chartData = Array(12)
-    .fill(0)
-    .map((_, monthIndex) => {
-      const monthData = monthlyRevenue.find(
-        (data) => data.month === monthIndex + 1
-      );
-      return monthData ? monthData.totalAmount : 0;
-    });
+  const chartData = monthlyRevenue;
 
   return (
     <BarChart
       sx={{
         // Styling class selector for table's label
         "& .MuiChartsAxis-tickContainer .MuiChartsAxis-tickLabel": {
-          fill: isDark ? "#FAFAFA" : "#000000",
+          fill: isDark ? "#B5B0B0" : "#000000",
         },
         // Styling class selector for bottom axis line
         "& .MuiChartsAxis-bottom .MuiChartsAxis-line": {
-          stroke: isDark ? "#FAFAFA" : "#000000",
+          stroke: isDark ? "#B5B0B0" : "#000000",
         },
         // Styling class selector for left axis line
         "& .MuiChartsAxis-left .MuiChartsAxis-line": {
-          stroke: isDark ? "#FAFAFA" : "#000000",
+          stroke: isDark ? "#B5B0B0" : "#000000",
         },
         // Styling class selector for left axis ticks
         "& .MuiChartsAxis-left .MuiChartsAxis-tick": {
-          stroke: isDark ? "#FAFAFA" : "#000000",
+          stroke: isDark ? "#B5B0B0" : "#000000",
         },
         // Styling class selector for bottom axis ticks
         "& .MuiChartsAxis-bottom .MuiChartsAxis-tick": {
-          stroke: isDark ? "#FAFAFA" : "#000000",
+          backgroundColor: isDark ? "#B5B0B0" : "#000000",
         },
       }}
       series={[

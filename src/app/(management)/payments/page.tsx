@@ -7,9 +7,13 @@ import PaymentsTable from "@/app/(components)/payments/table";
 export default function Payments({
   searchParams,
 }: {
-  searchParams?: { search?: string };
+  searchParams?: {
+    search?: string;
+    page?: string;
+  };
 }) {
   const search = searchParams?.search || "";
+  const page = searchParams?.page || "";
 
   return (
     <article className="w-[100%]">
@@ -20,7 +24,7 @@ export default function Payments({
       <div className="py-4">
         <PaymentSearch />
       </div>
-      <PaymentsTable search={search} />
+      <PaymentsTable search={search} page={page} />
     </article>
   );
 }

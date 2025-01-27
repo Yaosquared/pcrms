@@ -19,7 +19,11 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
-export const fetchRecords = async (search: string) => {
+export const fetchRecords = async (search?: string, page?: string) => {
+  const parsedPage = parseInt(page || "1");
+  const pageNumber = 15;
+  const skipValue = (parsedPage - 1) * pageNumber;
+
   const paymentsData = await prisma.payments.findMany({
     where: {
       customerName: {
@@ -30,9 +34,15 @@ export const fetchRecords = async (search: string) => {
     orderBy: {
       createdAt: "asc",
     },
+    skip: skipValue,
+    take: pageNumber,
   });
 
   return paymentsData;
+};
+
+export const fetchAllRecordsCount = async (): Promise<number> => {
+  return await prisma.payments.count();
 };
 
 export const editRecord = async (formData: FormData) => {
@@ -83,12 +93,17 @@ export const markAsPaid = async (id: string) => {
   const updatedDate = new Date();
 
   try {
+    const currentMonth = new Date().getMonth() + 1;
+    const currentYear = new Date().getFullYear();
+
     await prisma.payments.update({
       where: {
         paymentId: id,
       },
       data: {
         paymentStatus: true,
+        monthPaid: currentMonth,
+        yearPaid: currentYear,
         updatedAt: updatedDate,
       },
     });
