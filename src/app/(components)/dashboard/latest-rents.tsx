@@ -10,7 +10,7 @@ const LatestRents = async () => {
       <h2 className="text-sm md:text-base lg:text-lg font-semibold">
         Latest Rents
       </h2>
-      <div className="lg:h-[30rem] lg:overflow-y-auto">
+      <div className="lg:h-[30rem] lg:overflow-y-auto scrollbar-hide">
         <ul className="bg-blue xl:space-y-2">
           {rentalsData.map((rental) => (
             <li
@@ -21,7 +21,9 @@ const LatestRents = async () => {
               <div className="flex flex-col text-sm lg:text-base">
                 <p className="font-medium">{rental.customerName}</p>
                 <p>
-                  {rental.payments ? `₱${rental.payments.totalAmount}` : "N/A"}
+                  {rental.payments && rental.payments.totalAmount != 0
+                    ? `₱${rental.payments.totalAmount}`
+                    : "Pending"}
                 </p>
               </div>
             </li>

@@ -10,7 +10,7 @@ datasource db {
 
 model PetCarriers {
   carrierId         String    @id @default(cuid())
-  carrierName       String
+  carrierName       String    @unique
   batteryPercentage Int       @default(0)
   deviceStatus      Boolean   @default(false)
   rentalStatus      Boolean   @default(false)
@@ -18,19 +18,24 @@ model PetCarriers {
   updatedAt         DateTime? @updatedAt
 
   rentals Rentals[]
+  // monitoring Monitoring[]
 
   @@map("pet_carriers")
 }
 
 model Monitoring {
-  monitoringId String    @id @default(cuid())
-  carrierName  String
-  rangeStatus  Boolean
-  latitude     String
-  longitude    String
-  timer        String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime? @updatedAt
+  monitoringId      String    @id @default(cuid())
+  carrierId         String    @unique
+  carrierName       String
+  isCarrierSelected Boolean   @default(false)
+  deviceStatus      Boolean?
+  rangeStatus       Boolean   @default(false)
+  latitude          Float
+  longitude         Float
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime? @updatedAt
+
+  // petCarriers PetCarriers @relation(fields: [carrierId], references: [carrierId])
 
   @@map("monitoring")
 }
@@ -91,6 +96,8 @@ model Payments {
   penalty       String?
   penaltyAmount Int?
   totalAmount   Int?
+  monthPaid     Int?
+  yearPaid      Int?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
 

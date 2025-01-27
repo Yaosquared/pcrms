@@ -7,9 +7,13 @@ import ComplaintsTable from "@/app/(components)/complaints/table";
 export default function Complaints({
   searchParams,
 }: {
-  searchParams?: { search?: string };
+  searchParams?: {
+    search?: string;
+    page?: string;
+  };
 }) {
   const search = searchParams?.search || "";
+  const page = searchParams?.page || "";
 
   return (
     <article className="w-[100%]">
@@ -20,7 +24,7 @@ export default function Complaints({
       <div className="py-4">
         <ComplaintSearch />
       </div>
-      <ComplaintsTable search={search} />
+      <ComplaintsTable search={search} page={page} />
     </article>
   );
 }

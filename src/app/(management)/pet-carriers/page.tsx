@@ -5,12 +5,16 @@ import PetCarriersHeader from "@/app/(components)/pet-carriers/header";
 import PetCarrierSearch from "@/app/(components)/pet-carriers/search-bar";
 import PetCarriersTable from "@/app/(components)/pet-carriers/table";
 
-export default function PetCarriers({
+const PetCarriers = ({
   searchParams,
 }: {
-  searchParams?: { search?: string };
-}) {
+  searchParams?: {
+    search?: string;
+    page?: string;
+  };
+}) => {
   const search = searchParams?.search || "";
+  const page = searchParams?.page || "";
 
   return (
     <article className="w-[100%]">
@@ -18,11 +22,13 @@ export default function PetCarriers({
       <div className="pt-2 pb-4">
         <Divider orientation="horizontal" />
       </div>
-      <MonitorCards />
+      <MonitorCards search={search} page={page} />
       <div className="py-4">
         <PetCarrierSearch />
       </div>
-      <PetCarriersTable search={search} />
+      <PetCarriersTable search={search} page={page} />
     </article>
   );
-}
+};
+
+export default PetCarriers;

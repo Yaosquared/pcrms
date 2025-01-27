@@ -1,3 +1,6 @@
+"use client";
+
+import { useTheme } from "next-themes";
 import CircularProgress from "@mui/joy/CircularProgress";
 
 interface PercentageCardProps {
@@ -12,12 +15,16 @@ export default function PercentageCard({
   colorValue,
   showPercentageSign = false,
 }: PercentageCardProps) {
+  const { theme } = useTheme();
+  const trackColor = theme === "dark" ? "#292727" : "";
+
   return (
     <div>
       <CircularProgress
         sx={{
           "--CircularProgress-size": "90px",
           "--CircularProgress-trackThickness": "8px",
+          "--CircularProgress-trackColor": trackColor,
         }}
         determinate
         value={value}

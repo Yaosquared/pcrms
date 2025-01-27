@@ -75,32 +75,23 @@ export const fetchComplaintsData = async () => {
 
 export const fetchMonthlyRevenue = async () => {
   const monthlyRevenue = await prisma.payments.groupBy({
-    by: ["createdAt"],
+    by: ["monthPaid"],
+    where: {
+      monthPaid: {
+        not: null,
+      },
+    },
     _sum: {
       totalAmount: true,
     },
-    orderBy: {
-      createdAt: "asc",
-    },
-    where: {
-      createdAt: {
-        gte: new Date(new Date().getFullYear(), 0, 1),
-        lt: new Date(new Date().getFullYear() + 1, 0, 1),
-      },
-    },
   });
 
-  const formattedMonthlyRevenue = Array(12)
-    .fill(0)
-    .map((_, monthIndex) => {
-      const monthData = monthlyRevenue.find(
-        (data) => new Date(data.createdAt).getMonth() === monthIndex
-      );
-      return {
-        month: monthIndex + 1,
-        totalAmount: monthData?._sum.totalAmount || 0,
-      };
-    });
+  const months = Array(12).fill(0);
 
-  return formattedMonthlyRevenue;
+  monthlyRevenue.forEach((entry) => {
+    const monthIndex = parseInt(String(entry.monthPaid) ?? "0") - 1;
+    months[monthIndex] = entry._sum.totalAmount || 0;
+  });
+
+  return months;
 };

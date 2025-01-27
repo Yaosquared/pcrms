@@ -51,7 +51,10 @@ const DeleteButton = ({ id, name }: { id: string; name: string }) => {
         aria-labelledby="Delete button"
         aria-describedby="Delete pet carrier record?"
       >
-        <Box sx={style} className="dark:bg-[#121212]">
+        <Box
+          sx={style}
+          className="dark:bg-[#121212] w-[80%] md:w-[50%] lg:w-[40%] xl:w-[25%]"
+        >
           <ComplaintDeleteForm
             id={id}
             name={name}

@@ -19,7 +19,11 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
-export const fetchRecords = async (search?: string) => {
+export const fetchRecords = async (search?: string, page?: string) => {
+  const parsedPage = parseInt(page || "1");
+  const pageNumber = 10;
+  const skipValue = (parsedPage - 1) * pageNumber;
+
   const petCarriersData = await prisma.petCarriers.findMany({
     where: {
       carrierName: {
@@ -30,18 +34,35 @@ export const fetchRecords = async (search?: string) => {
     orderBy: {
       createdAt: "asc",
     },
+    skip: skipValue,
+    take: pageNumber,
   });
 
   return petCarriersData;
+};
+
+export const fetchAllRecordsCount = async (): Promise<number> => {
+  return await prisma.petCarriers.count();
 };
 
 export const createRecord = async (formData: FormData) => {
   const newName = formData.get("carrier-name") as string;
 
   try {
-    await prisma.petCarriers.create({
+    const newCarrier = await prisma.petCarriers.create({
       data: {
         carrierName: newName,
+        updatedAt: null,
+      },
+    });
+
+    await prisma.monitoring.create({
+      data: {
+        carrierId: newCarrier.carrierId,
+        carrierName: newName,
+        deviceStatus: false,
+        latitude: 0,
+        longitude: 0,
         updatedAt: null,
       },
     });
@@ -86,6 +107,10 @@ export const deleteRecord = async (formData: FormData) => {
     if (rentalCount > 0) {
       return { error: "Delete linked rental record first" };
     }
+
+    await prisma.monitoring.delete({
+      where: { carrierId: id },
+    });
 
     await prisma.petCarriers.delete({
       where: { carrierId: id },
