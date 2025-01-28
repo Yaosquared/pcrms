@@ -1,11 +1,13 @@
-import LogInForm from "./(components)/login/form";
+import Link from "next/link";
 
 export default function LandingPage() {
   return (
     <main className="min-h-screen flex flex-col justify-center items-center space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-7">
-      <div className="w-screen h-screen flex flex-col justify-center items-center text-center text-xl bg-gradient-to-r from-[#0cadc4] to-[#1a3b69]">
-        <LogInForm />
-      </div>
+      <Link href="/sign-in" className="flex justify-center">
+        <button className="w-[80%] bg-blue-600 hover:bg-blue-700 rounded-md shadow-md p-4 text-white font-semibold text-lg lg:text-2xl transition duration-300 ease-in-out">
+          Continue to Pet Carrier Rental Management System
+        </button>
+      </Link>
     </main>
   );
 }

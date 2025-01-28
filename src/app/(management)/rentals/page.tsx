@@ -1,8 +1,8 @@
 import { Divider } from "@mui/joy";
 
-import RentalsHeader from "@/app/(components)/rentals/header";
-import RentalSearch from "@/app/(components)/rentals/search-bar";
-import RentalsTable from "@/app/(components)/rentals/table";
+import RentalsHeader from "@/app/components/rentals/header";
+import RentalSearch from "@/app/components/rentals/search-bar";
+import RentalsTable from "@/app/components/rentals/table";
 
 export default function Rentals({
   searchParams,

@@ -1,8 +1,8 @@
 import { Divider } from "@mui/joy";
 
-import SettingsHeader from "@/app/(components)/settings/header";
-import SettingSearch from "@/app/(components)/settings/search-bar";
-import SettingsTable from "@/app/(components)/settings/table";
+import SettingsHeader from "@/app/components/settings/header";
+import SettingSearch from "@/app/components/settings/search-bar";
+import SettingsTable from "@/app/components/settings/table";
 
 export default function Settings({
   searchParams,

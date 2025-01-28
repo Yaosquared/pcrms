@@ -15,8 +15,8 @@ import { MdPeopleAlt } from "react-icons/md";
 import { FaClipboardList, FaCreditCard } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
 
-import LogoutForm from "./logout-form";
 import Footer from "./footer";
+import SignOut from "../(auth)/sign-out/page";
 
 interface NavLinkProps {
   href: string;
@@ -164,7 +164,7 @@ export default function Header() {
             sx={style}
             className="dark:bg-[#121212] w-[80%] md:w-[50%] lg:w-[40%] xl:w-[25%]"
           >
-            <LogoutForm handleClose={handleClose} />
+            <SignOut handleClose={handleClose} />
           </Box>
         </Modal>
       </div>

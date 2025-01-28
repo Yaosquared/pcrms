@@ -1,7 +1,7 @@
 import { Divider } from "@mui/joy";
 
-import MonitorHeader from "@/app/(components)/monitor/header";
-import Monitoring from "@/app/(components)/monitor/monitoring-data";
+import MonitorHeader from "@/app/components/monitor/header";
+import Monitoring from "@/app/components/monitor/monitoring-data";
 
 const Monitor = async () => {
   return (
