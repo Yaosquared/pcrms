@@ -5,6 +5,17 @@ import { fetchLatestRents } from "./actions";
 const LatestRents = async () => {
   const rentalsData = await fetchLatestRents();
 
+  const getTotalAmount = (
+    totalAmount: number | null,
+    paymentStatus: boolean | null
+  ) => {
+    if (paymentStatus == false) {
+      return "Pending";
+    } else {
+      return `₱${totalAmount}`;
+    }
+  };
+
   return (
     <div className="lg:h-[34rem] border rounded-md p-4 shadow-md">
       <h2 className="text-sm md:text-base lg:text-lg font-semibold">
@@ -22,7 +33,10 @@ const LatestRents = async () => {
                 <p className="font-medium">{rental.customerName}</p>
                 <p>
                   {rental.payments && rental.payments.totalAmount != 0
-                    ? `₱${rental.payments.totalAmount}`
+                    ? getTotalAmount(
+                        rental.payments.totalAmount,
+                        rental.payments.paymentStatus
+                      )
                     : "Pending"}
                 </p>
               </div>

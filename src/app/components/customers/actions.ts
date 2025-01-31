@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
 
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
@@ -53,6 +54,9 @@ export const createRecord = async (formData: FormData) => {
   const newIdType = formData.get("id-type") as string;
   const newIdNumber = formData.get("id-number") as string;
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.customers.create({
       data: {
@@ -63,6 +67,7 @@ export const createRecord = async (formData: FormData) => {
         idType: newIdType,
         idNumber: newIdNumber,
         updatedAt: null,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {
@@ -84,6 +89,9 @@ export const editRecord = async (formData: FormData) => {
   const newIdNumber = formData.get("customer-idNumber") as string;
   const updatedDate = new Date();
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.customers.update({
       where: { customerId: id },
@@ -95,6 +103,7 @@ export const editRecord = async (formData: FormData) => {
         idType: newIdType,
         idNumber: newIdNumber,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {

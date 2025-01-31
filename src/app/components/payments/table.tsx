@@ -81,6 +81,7 @@ const PaymentsTable = async ({
         },
         data: {
           totalAmount: totalAmount,
+          updatedAt: null,
         },
       });
     };
@@ -147,7 +148,7 @@ const PaymentsTable = async ({
                   <td className="px-1">{getUpdatedDate(payment.updatedAt)}</td>
                   <td>
                     <div className="flex flex-row items-center space-x-2 lg:space-x-3">
-                      <PaidButton id={payment.paymentId} />
+                      <PaidButton paymentId={payment.paymentId} />
                       <EditButton
                         id={payment.paymentId}
                         customerName={payment.customerName}

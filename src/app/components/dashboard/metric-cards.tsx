@@ -53,7 +53,7 @@ const MetricCards = async () => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-x-auto lg:flex lg:flex-row lg:space-x-4 lg:gap-0">
+    <div className="grid grid-cols-2 gap-4 overflow-x-auto lg:flex lg:flex-row lg:space-x-4 lg:gap-0">
       <div className="flex flex-col lg:flex-row border rounded-md shadow-md items-center py-4 space-y-2 lg:space-x-2 lg:px-2 lg:w-[25%] lg:justify-center 2xl:px-4 2xl:space-x-6">
         <ProgressCard
           value={getAvailableCarrier(petCarriersData)}

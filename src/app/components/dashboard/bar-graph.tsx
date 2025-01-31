@@ -30,7 +30,7 @@ export default function YearChart({
       ? 692
       : isExtraLargeScreen
       ? 1005
-      : 1352,
+      : 1366,
     height: isSmallScreen
       ? 400
       : isMediumScreen

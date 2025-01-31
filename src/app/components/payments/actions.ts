@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
 
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
@@ -53,6 +54,9 @@ export const editRecord = async (formData: FormData) => {
   const newPenaltyAmount = Number(formData.get("payment-penaltyAmount"));
   const updatedDate = new Date();
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.payments.update({
       where: { paymentId: id },
@@ -62,6 +66,7 @@ export const editRecord = async (formData: FormData) => {
         penalty: newPenalty,
         penaltyAmount: newPenaltyAmount,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {
@@ -89,8 +94,11 @@ export const deleteRecord = async (formData: FormData) => {
   revalidatePath("payments");
 };
 
-export const markAsPaid = async (id: string) => {
+export const markAsPaid = async (paymentId: string) => {
   const updatedDate = new Date();
+
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
 
   try {
     const currentMonth = new Date().getMonth() + 1;
@@ -98,13 +106,14 @@ export const markAsPaid = async (id: string) => {
 
     await prisma.payments.update({
       where: {
-        paymentId: id,
+        paymentId: paymentId,
       },
       data: {
         paymentStatus: true,
         monthPaid: currentMonth,
         yearPaid: currentYear,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {

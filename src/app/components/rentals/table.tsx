@@ -44,11 +44,6 @@ const RentalsTable = async ({
     rentalEndTime: Date | null
   ) => {
     if (rentalEndTime !== null) {
-      // const startTime = format(new Date(rentalStartTime), "HH");
-      // const endTime = format(new Date(rentalEndTime), "HH");
-      // const totalTime = parseInt(endTime) - parseInt(startTime);
-
-      // Calculate the difference in time including days
       const start = new Date(rentalStartTime);
       const end = new Date(rentalEndTime);
       const timeDifference = end.getTime() - start.getTime();

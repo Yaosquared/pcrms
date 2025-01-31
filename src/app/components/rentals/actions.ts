@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
 
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
@@ -53,6 +54,9 @@ export const createRecord = async (formData: FormData) => {
   const newPetBreed = formData.get("rental-petBreed") as string;
   const carrierId = formData.get("carrier-id") as string;
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     const newRental = await prisma.rentals.create({
       data: {
@@ -62,6 +66,7 @@ export const createRecord = async (formData: FormData) => {
         petType: newPetType,
         petBreed: newPetBreed,
         updatedAt: null,
+        modifiedBy: modifierName,
         petCarriers: {
           connect: {
             carrierId,
@@ -83,6 +88,7 @@ export const createRecord = async (formData: FormData) => {
       where: { carrierId: carrierId },
       data: {
         rentalStatus: true,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {
@@ -103,6 +109,9 @@ export const editRecord = async (formData: FormData) => {
   const newPetBreed = formData.get("rental-petBreed") as string;
   const updatedDate = new Date();
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.rentals.update({
       where: { rentalId: id },
@@ -113,6 +122,7 @@ export const editRecord = async (formData: FormData) => {
         petType: newPetType,
         petBreed: newPetBreed,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {
@@ -151,6 +161,9 @@ export const markAsReturned = async (rentalId: string, carrierId: string) => {
   const updatedRentalEndTime = new Date();
   const updatedDate = new Date();
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.rentals.update({
       where: {
@@ -160,6 +173,7 @@ export const markAsReturned = async (rentalId: string, carrierId: string) => {
         rentalStatus: true,
         rentalEndTime: updatedRentalEndTime,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
 
@@ -167,6 +181,7 @@ export const markAsReturned = async (rentalId: string, carrierId: string) => {
       where: { carrierId: carrierId },
       data: {
         rentalStatus: false,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {

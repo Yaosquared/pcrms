@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
 
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
@@ -49,12 +50,16 @@ export const createRecord = async (formData: FormData) => {
   const newName = formData.get("complaint-customerName") as string;
   const newDescription = formData.get("complaint-description") as string;
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.complaints.create({
       data: {
         customerName: newName,
         description: newDescription,
         updatedAt: null,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {
@@ -72,6 +77,9 @@ export const editRecord = async (formData: FormData) => {
   const newDescription = formData.get("complaint-description") as string;
   const updatedDate = new Date();
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.complaints.update({
       where: { complaintId: id },
@@ -80,6 +88,7 @@ export const editRecord = async (formData: FormData) => {
         description: newDescription,
         complaintStatus: false,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {
@@ -111,6 +120,9 @@ export const markAsResolved = async (id: string) => {
   const updatedDateResolved = new Date();
   const updatedDate = new Date();
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.complaints.update({
       where: {
@@ -120,6 +132,7 @@ export const markAsResolved = async (id: string) => {
         complaintStatus: true,
         dateResolved: updatedDateResolved,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {

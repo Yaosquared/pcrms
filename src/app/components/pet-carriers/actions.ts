@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
 
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
@@ -48,11 +49,15 @@ export const fetchAllRecordsCount = async (): Promise<number> => {
 export const createRecord = async (formData: FormData) => {
   const newName = formData.get("carrier-name") as string;
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     const newCarrier = await prisma.petCarriers.create({
       data: {
         carrierName: newName,
         updatedAt: null,
+        modifiedBy: modifierName,
       },
     });
 
@@ -80,12 +85,16 @@ export const editRecord = async (formData: FormData) => {
   const newName = formData.get("carrier-name") as string;
   const updatedDate = new Date();
 
+  const session = await auth();
+  const modifierName = session?.user?.name || "";
+
   try {
     await prisma.petCarriers.update({
       where: { carrierId: id },
       data: {
         carrierName: newName,
         updatedAt: updatedDate,
+        modifiedBy: modifierName,
       },
     });
   } catch (error) {

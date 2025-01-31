@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function LandingPage() {
+const LandingPage = async () => {
   return (
     <main className="min-h-screen flex flex-col justify-center items-center space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-7">
       <Link href="/sign-in" className="flex justify-center">
@@ -10,4 +10,6 @@ export default function LandingPage() {
       </Link>
     </main>
   );
-}
+};
+
+export default LandingPage;

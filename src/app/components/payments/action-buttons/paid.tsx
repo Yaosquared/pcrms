@@ -5,10 +5,9 @@ import { toast } from "react-hot-toast";
 
 import { markAsPaid } from "../actions";
 
-const PaidButton = ({ id }: { id: string }) => {
-  const submitId = markAsPaid.bind(null, id);
+const PaidButton = ({ paymentId }: { paymentId: string }) => {
   const clientAction = async () => {
-    const result = await submitId();
+    const result = await markAsPaid(paymentId);
     if (result?.error) {
       toast.error(result.error);
     } else {
