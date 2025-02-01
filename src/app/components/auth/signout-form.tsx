@@ -1,25 +1,23 @@
 "use client";
 
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 import { generalSignOut } from "./actions";
 
-const SignOutForm = ({
-  sessionProp,
-  handleClose,
-}: {
-  sessionProp: { name: string | null };
-  handleClose: () => void;
-}) => {
+const SignOutForm = ({ handleClose }: { handleClose: () => void }) => {
   const clientAction = async () => {
     await generalSignOut();
     toast.success("Account signed out successfully");
   };
+
+  const { data: session } = useSession();
+
   return (
     <div className="flex flex-col space-y-4 text-foreground text-sm lg:text-base text-center items-center">
       <h1 className="p-4 text-base lg:text-lg">
         Are you sure you want to log out your account
-        <span className="font-semibold"> ({sessionProp.name}) </span>?
+        <span className="font-semibold"> ({session?.user?.name}) </span>?
       </h1>
       <div className="flex justify-between w-[100%]">
         <button

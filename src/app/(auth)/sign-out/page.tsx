@@ -1,13 +1,15 @@
+import { SessionProvider } from "next-auth/react";
+
 import SignOutForm from "@/app/components/auth/signout-form";
 
-const SignOut = ({
-  sessionProp,
-  handleClose,
-}: {
-  sessionProp: { name: string | null };
-  handleClose: () => void;
-}) => {
-  return <SignOutForm sessionProp={sessionProp} handleClose={handleClose} />;
+const SignOut = ({ handleClose }: { handleClose: () => void }) => {
+  return (
+    <>
+      <SessionProvider>
+        <SignOutForm handleClose={handleClose} />
+      </SessionProvider>
+    </>
+  );
 };
 
 export default SignOut;

@@ -35,7 +35,7 @@ export const credentialSignIn = async (formData: FormData) => {
   const password = formData.get("password") as string;
 
   if (!name || (name as string).length < 1) {
-    return { error: "Name cannot be blank" };
+    return { error: "Username cannot be blank" };
   }
   if (!password || password.length < 1) {
     return { error: "Password cannot be blank" };

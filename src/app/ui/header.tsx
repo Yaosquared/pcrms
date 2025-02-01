@@ -37,11 +37,7 @@ const navLinks: NavLinkProps[] = [
   { href: "/settings", label: "Settings", icon: <IoSettings size={20} /> },
 ];
 
-export default function Header({
-  sessionProp,
-}: {
-  sessionProp: { name: string | null };
-}) {
+export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -168,7 +164,7 @@ export default function Header({
             sx={style}
             className="dark:bg-[#121212] w-[80%] md:w-[50%] lg:w-[40%] xl:w-[25%]"
           >
-            <SignOut sessionProp={sessionProp} handleClose={handleClose} />
+            <SignOut handleClose={handleClose} />
           </Box>
         </Modal>
       </div>
