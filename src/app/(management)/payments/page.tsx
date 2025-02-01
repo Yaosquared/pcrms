@@ -1,8 +1,8 @@
 import { Divider } from "@mui/joy";
 
-import PaymentsHeader from "@/app/(components)/payments/header";
-import PaymentSearch from "@/app/(components)/payments/search-bar";
-import PaymentsTable from "@/app/(components)/payments/table";
+import PaymentsHeader from "@/app/components/payments/header";
+import PaymentSearch from "@/app/components/payments/search-bar";
+import PaymentsTable from "@/app/components/payments/table";
 
 export default function Payments({
   searchParams,

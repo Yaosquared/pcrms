@@ -1,8 +1,8 @@
 import { Divider } from "@mui/joy";
 
-import CustomersHeader from "@/app/(components)/customers/header";
-import CustomerSearch from "@/app/(components)/customers/search-bar";
-import CustomersTable from "@/app/(components)/customers/table";
+import CustomersHeader from "@/app/components/customers/header";
+import CustomerSearch from "@/app/components/customers/search-bar";
+import CustomersTable from "@/app/components/customers/table";
 
 export default function Customers({
   searchParams,

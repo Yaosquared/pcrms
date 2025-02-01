@@ -1,8 +1,8 @@
 import { Divider } from "@mui/joy";
 
-import ComplaintsHeader from "@/app/(components)/complaints/header";
-import ComplaintSearch from "@/app/(components)/complaints/search-bar";
-import ComplaintsTable from "@/app/(components)/complaints/table";
+import ComplaintsHeader from "@/app/components/complaints/header";
+import ComplaintSearch from "@/app/components/complaints/search-bar";
+import ComplaintsTable from "@/app/components/complaints/table";
 
 export default function Complaints({
   searchParams,
