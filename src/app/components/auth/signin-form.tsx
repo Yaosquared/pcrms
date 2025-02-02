@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 import GithubSignIn from "./signin-github";
 import { credentialSignIn } from "./actions";
-import { redirect } from "next/navigation";
+import SignInButton from "./action-buttons/signin-button";
 
 const SignInForm = () => {
   const clientAction = async (formData: FormData) => {
@@ -45,12 +46,7 @@ const SignInForm = () => {
           placeholder="Password"
           className="h-10 w-full px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
-        <button
-          type="submit"
-          className="flex justify-center items-center w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md h-10 sm:h-9 lg:h-11 transition duration-300 ease-in-out"
-        >
-          Sign In
-        </button>
+        <SignInButton />
         <Link
           href="/sign-up"
           className="flex justify-center items-center w-full bg-[#e8f0f6] hover:bg-[#e2eaf0] dark:bg-[#151e2a] dark:hover:bg-[#161f2c]/50 text-foreground rounded-md h-10 sm:h-9 lg:h-11 transition duration-300 ease-in-out"

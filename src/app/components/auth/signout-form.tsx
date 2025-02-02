@@ -2,14 +2,19 @@
 
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
+import { useContext } from "react";
 
 import { generalSignOut } from "./actions";
+import { ModalContext } from "@/app/ui/header";
+import SignOutButton from "./action-buttons/signout-button";
 
-const SignOutForm = ({ handleClose }: { handleClose: () => void }) => {
+const SignOutForm = () => {
   const clientAction = async () => {
     await generalSignOut();
     toast.success("Account signed out successfully");
   };
+
+  const setIsModalOpen = useContext(ModalContext);
 
   const { data: session } = useSession();
 
@@ -21,16 +26,13 @@ const SignOutForm = ({ handleClose }: { handleClose: () => void }) => {
       </h1>
       <div className="flex justify-between w-[100%]">
         <button
-          onClick={handleClose}
+          onClick={() => setIsModalOpen && setIsModalOpen(false)}
           className="w-[49%] bg-slate-200 hover:bg-slate-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 text-black dark:text-white font-semibold rounded-md h-10 sm:h-9 lg:h-11 text-xs lg:text-sm flex items-center justify-center transition duration-300 ease-in-out"
         >
           Cancel
         </button>
-        <form
-          action={clientAction}
-          className="w-[49%] bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md h-10 sm:h-9 lg:h-11 text-xs lg:text-sm flex items-center justify-center transition duration-300 ease-in-out cursor-pointer"
-        >
-          <button type="submit">Sign out</button>
+        <form action={clientAction} className="w-[49%]  h-10 sm:h-9 lg:h-11">
+          <SignOutButton />
         </form>
       </div>
     </div>

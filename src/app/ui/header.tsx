@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, createContext, Dispatch, SetStateAction } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -36,6 +36,10 @@ const navLinks: NavLinkProps[] = [
   { href: "/payments", label: "Payments", icon: <FaCreditCard size={20} /> },
   { href: "/settings", label: "Settings", icon: <IoSettings size={20} /> },
 ];
+
+export const ModalContext = createContext<Dispatch<
+  SetStateAction<boolean>
+> | null>(null);
 
 export default function Header() {
   const pathname = usePathname();
@@ -164,7 +168,9 @@ export default function Header() {
             sx={style}
             className="dark:bg-[#121212] w-[80%] md:w-[50%] lg:w-[40%] xl:w-[25%]"
           >
-            <SignOut handleClose={handleClose} />
+            <ModalContext.Provider value={setIsModalOpen}>
+              <SignOut />
+            </ModalContext.Provider>
           </Box>
         </Modal>
       </div>
