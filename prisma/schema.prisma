@@ -127,7 +127,7 @@ model Settings {
 model User {
   id             String    @id @default(cuid())
   name           String    @unique
-  email          String?   @unique @default("no email")
+  email          String?   @unique @default(cuid())
   hashedPassword String?
   emailVerified  DateTime?
   image          String?

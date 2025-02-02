@@ -3,6 +3,7 @@
 import { toast } from "react-hot-toast";
 
 import { credentialSignUp } from "./actions";
+import SignUpButton from "./action-buttons/signup-button";
 
 const SignUpForm = () => {
   const clientAction = async (formData: FormData) => {
@@ -35,12 +36,7 @@ const SignUpForm = () => {
           placeholder="Password"
           className="h-10 w-full px-3 py-2 border rounded-md placeholder:text-muted-foreground outline-none focus:border-2 focus:border-blue-600"
         />
-        <button
-          type="submit"
-          className="flex justify-center items-center w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md h-10 sm:h-9 lg:h-11 transition duration-300 ease-in-out"
-        >
-          Sign Up
-        </button>
+        <SignUpButton />
       </form>
     </div>
   );
