@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import CircularProgress from "@mui/joy/CircularProgress";
+import { useMediaQuery } from "@mui/material";
 
 interface PercentageCardProps {
   value: number;
@@ -17,6 +18,7 @@ export default function PercentageCard({
 }: PercentageCardProps) {
   const { theme } = useTheme();
   const trackColor = theme === "dark" ? "#292727" : "";
+  const isSmallScreen = useMediaQuery("(max-width: 426px)");
 
   return (
     <div>
@@ -25,6 +27,8 @@ export default function PercentageCard({
           "--CircularProgress-size": "90px",
           "--CircularProgress-trackThickness": "8px",
           "--CircularProgress-trackColor": trackColor,
+          fontWeight: 600,
+          fontSize: isSmallScreen ? "0.85rem" : "1rem",
         }}
         determinate
         value={value}

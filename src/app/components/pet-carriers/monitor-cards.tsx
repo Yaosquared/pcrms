@@ -48,7 +48,7 @@ const MonitorCards = async ({
               colorValue={getColorValue(monitor.batteryPercentage)}
               showPercentageSign={getPercentageSign(monitor.batteryPercentage)}
             />
-            <p className="text-sm 2xl:text-lg font-semibold">
+            <p className="text-sm 2xl:text-lg font-medium">
               {monitor.carrierName}
             </p>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Pagination = ({
   petCarriersDataLength,
@@ -18,22 +19,22 @@ const Pagination = ({
   const isNextDisabled = page >= totalPages;
 
   return (
-    <div className="w-full flex justify-end gap-2 p-4 text-sm">
+    <div className="w-full flex justify-end p-4">
       <button
         onClick={() => {
           router.push(`?page=${page - 1}`);
         }}
-        className={`p-2 rounded-md shadow-md ${
+        className={`p-2 rounded-l-md shadow-md ${
           isPreviousDisabled
-            ? "bg-accent-foreground/10 cursor-not-allowed"
+            ? "bg-accent-foreground/5 cursor-not-allowed"
             : "bg-accent-foreground/0 hover:bg-accent-foreground/5 transition duration-300 ease-in-out"
         }`}
         disabled={isPreviousDisabled}
       >
-        &lt;
+        <IoIosArrowBack />
       </button>
 
-      <div className="p-2 rounded-md shadow-md">
+      <div className="p-2 shadow-md text-sm">
         Page {page} of {totalPages}
       </div>
 
@@ -41,14 +42,14 @@ const Pagination = ({
         onClick={() => {
           router.push(`?page=${page + 1}`);
         }}
-        className={`p-2 rounded-md shadow-md ${
+        className={`p-2 rounded-r-md shadow-md ${
           isNextDisabled
-            ? "bg-accent-foreground/10 cursor-not-allowed"
+            ? "bg-accent-foreground/5 cursor-not-allowed"
             : "bg-accent-foreground/0 hover:bg-accent-foreground/5 transition duration-300 ease-in-out"
         }`}
         disabled={isNextDisabled}
       >
-        &gt;
+        <IoIosArrowForward />
       </button>
     </div>
   );

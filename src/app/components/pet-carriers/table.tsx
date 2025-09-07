@@ -46,54 +46,52 @@ const PetCarriersTable = async ({
 
   return (
     <>
-      <div>
-        <div className="overflow-x-auto text-sm">
-          <table className="w-[100%] text-left">
-            <thead>
-              <tr className="border-b-2 space-x-4 whitespace-nowrap">
-                <th className="px-1 py-2">Carrier Name</th>
-                <th className="px-1">Device Status</th>
-                <th className="px-1">Rental Status</th>
-                <th className="px-1">Date Created</th>
-                <th className="px-1">Date Updated</th>
-                <th className="px-1">Actions</th>
+      <div className="overflow-x-auto">
+        <table className="w-[100%] text-left">
+          <thead>
+            <tr className="border-b-2 space-x-4 whitespace-nowrap">
+              <th className="px-1 py-2">Carrier Name</th>
+              <th className="px-1">Device Status</th>
+              <th className="px-1">Rental Status</th>
+              <th className="px-1">Date Created</th>
+              <th className="px-1">Date Updated</th>
+              <th className="px-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {petCarriersData.map((carrier) => (
+              <tr
+                key={carrier.carrierName}
+                className="border-b text-gray-900 hover:bg-accent dark:text-gray-200 cursor-pointer whitespace-nowrap"
+              >
+                <td className="px-1 py-2">{carrier.carrierName}</td>
+                <td className="px-1">
+                  {getDeviceStatus(carrier.deviceStatus)}
+                </td>
+                <td className="px-1">
+                  {getRentalStatus(carrier.rentalStatus)}
+                </td>
+                <td className="px-1">{getCreatedDate(carrier.createdAt)}</td>
+                <td className="px-1">{getUpdatedDate(carrier.updatedAt)}</td>
+                <td>
+                  <div className="flex flex-row items-center space-x-2 lg:space-x-3">
+                    <CopyButton id={carrier.carrierId} />
+                    <EditButton
+                      id={carrier.carrierId}
+                      name={carrier.carrierName}
+                    />
+                    <DeleteButton
+                      id={carrier.carrierId}
+                      name={carrier.carrierName}
+                    />
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {petCarriersData.map((carrier) => (
-                <tr
-                  key={carrier.carrierName}
-                  className="border-b text-gray-900 hover:bg-accent dark:text-gray-200 cursor-pointer whitespace-nowrap"
-                >
-                  <td className="px-1 py-2">{carrier.carrierName}</td>
-                  <td className="px-1">
-                    {getDeviceStatus(carrier.deviceStatus)}
-                  </td>
-                  <td className="px-1">
-                    {getRentalStatus(carrier.rentalStatus)}
-                  </td>
-                  <td className="px-1">{getCreatedDate(carrier.createdAt)}</td>
-                  <td className="px-1">{getUpdatedDate(carrier.updatedAt)}</td>
-                  <td>
-                    <div className="flex flex-row items-center space-x-2 lg:space-x-3">
-                      <CopyButton id={carrier.carrierId} />
-                      <EditButton
-                        id={carrier.carrierId}
-                        name={carrier.carrierName}
-                      />
-                      <DeleteButton
-                        id={carrier.carrierId}
-                        name={carrier.carrierName}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <Pagination petCarriersDataLength={petCarriersDataLength} />
+            ))}
+          </tbody>
+        </table>
       </div>
+      <Pagination petCarriersDataLength={petCarriersDataLength} />
     </>
   );
 };

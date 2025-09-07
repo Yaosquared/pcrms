@@ -48,7 +48,7 @@ const ComplaintsTable = async ({
   return (
     <>
       <div>
-        <div className="overflow-x-auto text-sm">
+        <div className="overflow-x-auto">
           <table className="w-[100%] text-left">
             <thead>
               <tr className="border-b-2 space-x-4 whitespace-nowrap">

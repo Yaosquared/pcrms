@@ -10,7 +10,7 @@ const Footer = () => {
     <div className="flex flex-col items-center justify-center">
       <Link href="https://marioyaoyaoii.vercel.app/">
         <Image
-          src="/logo.ico"
+          src="/ysqrd-logo.png"
           width={50}
           height={50}
           title="Go to Yaosquared's Portfolio"

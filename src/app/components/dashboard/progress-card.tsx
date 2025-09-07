@@ -36,6 +36,8 @@ export default function ProgressCard({ value, colorValue }: ProgressCardProps) {
             ? "10px"
             : "12px",
           "--CircularProgress-trackColor": trackColor,
+          fontWeight: 600,
+          fontSize: isSmallScreen ? "0.85rem" : "1rem",
         }}
         determinate
         value={value}

@@ -19,7 +19,7 @@ const RentalSearch = () => {
   }, 300);
 
   return (
-    <div className="w-[100%] flex items-center border rounded-md shadow-sm pr-1 text-foreground text-sm lg:text-base focus-within:border-2 focus-within:border-blue-600">
+    <div className="w-[100%] flex items-center border rounded-md shadow-sm pr-1 text-foreground text-sm lg:text-base focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent">
       <input
         type="search"
         name="carrier-search"
