@@ -10,22 +10,6 @@ interface AuthError {
   code: string;
 }
 
-export const getErrorMessage = (error: unknown): string => {
-  let message: string;
-
-  if (error instanceof Error) {
-    message = error.message;
-  } else if (error && typeof error === "object" && "message" in error) {
-    message = String(error.message);
-  } else if (typeof error === "string") {
-    message = error;
-  } else {
-    message = "Something went wrong";
-  }
-
-  return message;
-};
-
 export const githubSignIn = async () => {
   await signIn("github");
 };
@@ -64,6 +48,13 @@ export const credentialSignUp = async (formData: FormData) => {
   const name = formData.get("name");
   const password = formData.get("password") as string;
 
+  if (!name || (name as string).length < 1) {
+    return { error: "Username cannot be blank" };
+  }
+  if (!password || password.length < 1) {
+    return { error: "Password cannot be blank" };
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
@@ -75,10 +66,14 @@ export const credentialSignUp = async (formData: FormData) => {
         hashedPassword: validatedData.hashedPassword as string,
       },
     });
-  } catch (error) {
-    return {
-      error: getErrorMessage(error),
-    };
+  } catch (e: unknown) {
+    if ((e as AuthError).code === "invalid_credentials") {
+      return { error: "Invalid credentials. Please try again" };
+    } else if ((e as AuthError).code === "too_small") {
+      return { error: "Blank fields" };
+    } else {
+      return { error: "Something went wrong" };
+    }
   }
 
   redirect("/sign-in");

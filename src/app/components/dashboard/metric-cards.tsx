@@ -59,7 +59,7 @@ const MetricCards = async () => {
           value={getAvailableCarrier(petCarriersData)}
           colorValue="primary"
         />
-        <p className="text-sm 2xl:text-lg font-semibold text-center">
+        <p className="text-sm 2xl:text-lg font-medium text-center">
           Available Pet Carrier/s
         </p>
       </div>
@@ -69,7 +69,7 @@ const MetricCards = async () => {
           value={getOnRentPetCarrier(petCarriersData)}
           colorValue="danger"
         />
-        <p className="text-sm 2xl:text-lg font-semibold text-center">
+        <p className="text-sm 2xl:text-lg font-medium text-center">
           On-Rent Pet Carrier/s
         </p>
       </div>
@@ -79,7 +79,7 @@ const MetricCards = async () => {
           value={getTotalRentedCarrierToday()}
           colorValue="warning"
         />
-        <p className="text-sm 2xl:text-lg font-semibold text-center">
+        <p className="text-sm 2xl:text-lg font-medium text-center">
           Rented Pet Carrier/s Today
         </p>
       </div>
@@ -89,7 +89,7 @@ const MetricCards = async () => {
           value={getTotalNewCustomerToday(customersData)}
           colorValue="success"
         />
-        <p className="text-sm 2xl:text-lg font-semibold text-center">
+        <p className="text-sm 2xl:text-lg font-medium text-center">
           New Customer/s Today
         </p>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, createContext, Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -17,6 +17,8 @@ import { IoSettings } from "react-icons/io5";
 
 import Footer from "./footer";
 import SignOut from "../(auth)/sign-out/page";
+import { useSessionStore } from "@/lib/store";
+import Image from "next/image";
 
 interface NavLinkProps {
   href: string;
@@ -37,16 +39,18 @@ const navLinks: NavLinkProps[] = [
   { href: "/settings", label: "Settings", icon: <IoSettings size={20} /> },
 ];
 
-export const ModalContext = createContext<Dispatch<
-  SetStateAction<boolean>
-> | null>(null);
-
 export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
+  const session = useSessionStore((state) => state.session);
+  const userImage = session?.user?.image;
+
+  const toggleLogoutModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -124,40 +128,45 @@ export default function Header() {
                 </div>
               </IconButton>
             </div>
-            <div className="flex flex-col p-4">
-              <ul className="space-y-4">
-                {navLinks.map((link: NavLinkProps) => (
-                  <li key={link.href} className="group">
-                    <Link
-                      href={link.href}
-                      onClick={handleLinkClick}
-                      className={`flex items-center space-x-2 p-2 rounded-md ${
-                        isActive(link.href)
-                          ? "text-blue-700 bg-accent"
-                          : "text-gray-500 dark:text-gray-300 hover:text-blue-600 hover:bg-accent"
-                      }`}
-                    >
-                      <div className="flex flex-row items-center gap-3">
-                        {link.icon}
-                        <span className="text-sm lg:text-base 2xl:text-lg">
-                          {link.label}
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="flex flex-col p-4 gap-3">
+              {navLinks.map((link: NavLinkProps) => (
+                <li key={link.href} className="group">
+                  <Link
+                    href={link.href}
+                    onClick={handleLinkClick}
+                    className={`flex items-center space-x-2 p-2 rounded-md ${
+                      isActive(link.href)
+                        ? "text-blue-700 bg-accent"
+                        : "text-gray-500 dark:text-gray-300 hover:text-blue-600 hover:bg-accent"
+                    }`}
+                  >
+                    <div className="flex flex-row items-center gap-3">
+                      {link.icon}
+                      <span className="text-sm lg:text-base">{link.label}</span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
           <Footer />
         </SwipeableDrawer>
       </nav>
       <div className="flex items-center">
-        <RxAvatar
-          size={40}
-          onClick={handleOpen}
-          className="2xl:w-10 2xl:h-10 cursor-pointer"
-        />
+        {userImage ? (
+          <Image
+            src={userImage}
+            alt={`${session.user?.name} Image`}
+            onClick={handleOpen}
+            className="2xl:w-10 2xl:h-10 cursor-pointer"
+          />
+        ) : (
+          <RxAvatar
+            size={40}
+            onClick={handleOpen}
+            className="2xl:w-10 2xl:h-10 cursor-pointer"
+          />
+        )}
         <Modal
           open={isModalOpen}
           onClose={handleClose}
@@ -168,9 +177,7 @@ export default function Header() {
             sx={style}
             className="dark:bg-[#121212] w-[80%] md:w-[50%] lg:w-[40%] xl:w-[25%]"
           >
-            <ModalContext.Provider value={setIsModalOpen}>
-              <SignOut />
-            </ModalContext.Provider>
+            <SignOut toggleLogoutModal={toggleLogoutModal} />
           </Box>
         </Modal>
       </div>

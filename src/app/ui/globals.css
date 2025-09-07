@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -75,4 +76,40 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.mulish-regular {
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mulish-semibold {
+  font-family: "Mulish", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.mulish-bold {
+  font-family: "Mulish", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.mulish-regular-italic {
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.mulish-semibold-italic {
+  font-family: "Mulish", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.mulish-bold-italic {
+  font-family: "Mulish", sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
