@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -19,6 +19,7 @@ import Footer from "./footer";
 import SignOutForm from "../components/auth/signout-form";
 import { useAuthStore } from "@/lib/store";
 import Image from "next/image";
+import { getSession } from "next-auth/react";
 
 interface NavLinkProps {
   href: string;
@@ -46,10 +47,21 @@ export default function Header() {
   const setLogoutModalState = useAuthStore(
     (state) => state.setLogoutModalState
   );
+  const setUserSession = useAuthStore((state) => state.setUserSession);
   const handleOpen = () => setLogoutModalState(true);
   const handleClose = () => setLogoutModalState(false);
   const session = useAuthStore((state) => state.session);
   const userImage = session?.user?.image;
+
+  // retrieve details of the logged-in github user
+  useEffect(() => {
+    (async () => {
+      const current = await getSession();
+      if (current) {
+        setUserSession(current);
+      }
+    })();
+  }, [setUserSession]);
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -155,15 +167,17 @@ export default function Header() {
         {userImage ? (
           <Image
             src={userImage}
+            width={50}
+            height={50}
             alt={`${session.user?.name} Image`}
             onClick={handleOpen}
-            className="2xl:w-10 2xl:h-10 cursor-pointer"
+            className="2xl:w-12 2xl:h-12 cursor-pointer rounded-full object-cover"
           />
         ) : (
           <RxAvatar
             size={40}
             onClick={handleOpen}
-            className="2xl:w-10 2xl:h-10 cursor-pointer"
+            className="2xl:w-12 2xl:h-12 cursor-pointer"
           />
         )}
         <Modal
