@@ -4,18 +4,18 @@ import toast from "react-hot-toast";
 
 import { generalSignOut } from "./actions";
 import SignOutButton from "./action-buttons/signout-button";
-import { useSessionStore } from "@/lib/store";
+import { useAuthStore } from "@/lib/store";
 
-const SignOutForm = ({
-  toggleLogoutModal,
-}: {
-  toggleLogoutModal: () => void;
-}) => {
-  const session = useSessionStore((state) => state.session);
+const SignOutForm = () => {
+  const session = useAuthStore((state) => state.session);
+  const setLogoutModalState = useAuthStore(
+    (state) => state.setLogoutModalState
+  );
 
   const clientAction = async () => {
     await generalSignOut();
-    useSessionStore.getState().clearUserSession();
+    useAuthStore.getState().clearUserSession();
+    setLogoutModalState(false);
     toast.success("Account signed out successfully");
   };
 
@@ -27,7 +27,7 @@ const SignOutForm = ({
       </h1>
       <div className="flex justify-between w-[100%]">
         <button
-          onClick={toggleLogoutModal}
+          onClick={() => setLogoutModalState(false)}
           className="w-[49%] bg-slate-200 hover:bg-slate-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 text-black dark:text-white font-semibold rounded-md h-10 sm:h-9 lg:h-11 text-xs lg:text-sm flex items-center justify-center transition duration-300 ease-in-out"
         >
           Cancel

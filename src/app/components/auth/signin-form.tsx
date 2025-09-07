@@ -10,7 +10,7 @@ import SignInButton from "./action-buttons/signin-button";
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { getSession } from "next-auth/react";
-import { useSessionStore } from "@/lib/store";
+import { useAuthStore } from "@/lib/store";
 
 const SignInForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -27,7 +27,7 @@ const SignInForm = () => {
     } else {
       const session = await getSession();
       if (session) {
-        useSessionStore.getState().setUserSession(session);
+        useAuthStore.getState().setUserSession(session);
       }
 
       toast.success("Account successfully signed in");

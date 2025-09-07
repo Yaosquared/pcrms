@@ -2,11 +2,11 @@ import { SessionProvider } from "next-auth/react";
 
 import SignOutForm from "@/app/components/auth/signout-form";
 
-const SignOut = ({ toggleLogoutModal }: { toggleLogoutModal: () => void }) => {
+const SignOut = () => {
   return (
     <>
       <SessionProvider>
-        <SignOutForm toggleLogoutModal={toggleLogoutModal} />
+        <SignOutForm />
       </SessionProvider>
     </>
   );

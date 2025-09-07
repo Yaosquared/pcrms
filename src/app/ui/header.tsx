@@ -16,8 +16,8 @@ import { FaClipboardList, FaCreditCard } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
 
 import Footer from "./footer";
-import SignOut from "../(auth)/sign-out/page";
-import { useSessionStore } from "@/lib/store";
+import SignOutForm from "../components/auth/signout-form";
+import { useAuthStore } from "@/lib/store";
 import Image from "next/image";
 
 interface NavLinkProps {
@@ -42,15 +42,14 @@ const navLinks: NavLinkProps[] = [
 export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpen = () => setIsModalOpen(true);
-  const handleClose = () => setIsModalOpen(false);
-  const session = useSessionStore((state) => state.session);
+  const isModalOpen = useAuthStore((state) => state.logoutModalState);
+  const setLogoutModalState = useAuthStore(
+    (state) => state.setLogoutModalState
+  );
+  const handleOpen = () => setLogoutModalState(true);
+  const handleClose = () => setLogoutModalState(false);
+  const session = useAuthStore((state) => state.session);
   const userImage = session?.user?.image;
-
-  const toggleLogoutModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -177,7 +176,7 @@ export default function Header() {
             sx={style}
             className="dark:bg-[#121212] w-[80%] md:w-[50%] lg:w-[40%] xl:w-[25%]"
           >
-            <SignOut toggleLogoutModal={toggleLogoutModal} />
+            <SignOutForm />
           </Box>
         </Modal>
       </div>

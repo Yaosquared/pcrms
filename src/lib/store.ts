@@ -1,16 +1,18 @@
-// TODO: store session in zustand after login to prevent refetching of user details when opening user modal
-
 import { create } from "zustand";
 import { Session } from "next-auth";
 
-interface SessionStoreProps {
+interface AuthStoreProps {
   session: Session | null;
   setUserSession: (user: Session) => void;
   clearUserSession: () => void;
+  logoutModalState: boolean;
+  setLogoutModalState: (state: boolean) => void;
 }
 
-export const useSessionStore = create<SessionStoreProps>((set) => ({
+export const useAuthStore = create<AuthStoreProps>((set) => ({
   session: null,
   setUserSession: (session) => set({ session }),
   clearUserSession: () => set({ session: null }),
+  logoutModalState: false,
+  setLogoutModalState: (state: boolean) => set({ logoutModalState: state }),
 }));
